@@ -1,0 +1,140 @@
+{
+  "users": {
+    "soheil": {
+      "password": "12345",
+      "role": "employee",
+      "telegramId": 668058250,
+      "phone": "989015745264",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Call for Printer Ink Replacement",
+          "completed": false
+        },
+        {
+          "id": 6,
+          "title": "Refactor WhatsApp Bot Code",
+          "completed": false
+        },
+        {
+          "id": 7,
+          "title": "Make a AI interegated bot in telegram for auto answering texts\n(write to do's for this project)",
+          "completed": false
+        },
+        {
+          "id": 8,
+          "title": "Intorduce task management bot to elahe",
+          "completed": false
+        },
+        {
+          "id": 9,
+          "title": "Write all task that should be done",
+          "completed": false
+        },
+        {
+          "id": 10,
+          "title": "درود \nمراجعه به گروهی که  در واتس اپ برای DNV - Spin تشکیل شده . شود",
+          "completed": false
+        },
+        {
+          "id": 11,
+          "title": "Desktop page of greece",
+          "completed": false
+        },
+        {
+          "id": 12,
+          "title": "Desktop page of Spain",
+          "completed": false
+        },
+        {
+          "id": 13,
+          "title": "Server for telegram bot",
+          "completed": false
+        },
+        {
+          "id": 14,
+          "title": "Configure bot for WhatsApp campaign of nikan sepid doctors",
+          "completed": false
+        },
+        {
+          "id": 15,
+          "title": "Send all messages to nikan sepid doctors (run the campaign)",
+          "completed": false
+        }
+      ],
+      "dayStart": "2025-07-13T07:18:50.715Z",
+      "dayEnd": null
+    },
+    "elahe": {
+      "password": "elahe62198610",
+      "role": "employee",
+      "telegramId": 5772603645,
+      "phone": "989120579287",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Task 1",
+          "completed": false
+        },
+        {
+          "id": 2,
+          "title": "Task 2",
+          "completed": false
+        },
+        {
+          "id": 3,
+          "title": "درود \nمراجعه به گروهی که  در واتس اپ برای DNV - Spin تشکیل شده . شود",
+          "completed": false
+        }
+      ],
+      "dayStart": null,
+      "dayEnd": null
+    },
+    "negar": {
+      "password": "12345",
+      "role": "employee",
+      "telegramId": 442510228,
+      "phone": "989129581795",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Task 1",
+          "completed": false
+        },
+        {
+          "id": 2,
+          "title": "Task 2",
+          "completed": false
+        }
+      ],
+      "dayStart": null,
+      "dayEnd": null
+    },
+    "sadaf": {
+      "password": "12345",
+      "role": "employee",
+      "telegramId": 6857817945,
+      "phone": "989337785565",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "تماس با VFS",
+          "completed": true
+        },
+        {
+          "id": 2,
+          "title": "درست کردن لیست پزشکانی که درخواست مشاوره دادن و تماس با آنها",
+          "completed": false
+        }
+      ],
+      "dayStart": "2025-07-13T07:19:18.871Z",
+      "dayEnd": null
+    },
+    "mohammadi": {
+      "password": "admin",
+      "role": "manager",
+      "telegramId": 105974471,
+      "phone": "436767046223"
+    }
+  }
+}
