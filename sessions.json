@@ -19,7 +19,8 @@
     "username": "sadaf",
     "step": "main",
     "role": "employee",
-    "addingTask": false
+    "addingTask": false,
+    "editingTask": null
   },
   "5772603645": {
     "phone": "989120579287",

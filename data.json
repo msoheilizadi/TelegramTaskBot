@@ -60,6 +60,21 @@
           "id": 15,
           "title": "Send all messages to nikan sepid doctors (run the campaign)",
           "completed": false
+        },
+        {
+          "id": 16,
+          "title": "Tablet page of Greece",
+          "completed": false
+        },
+        {
+          "id": 17,
+          "title": "Tablet Page of Spain",
+          "completed": false
+        },
+        {
+          "id": 18,
+          "title": "Tablet page for Hungary",
+          "completed": false
         }
       ],
       "dayStart": "2025-07-13T07:18:50.715Z",
@@ -124,7 +139,32 @@
         {
           "id": 2,
           "title": "درست کردن لیست پزشکانی که درخواست مشاوره دادن و تماس با آنها",
-          "completed": false
+          "completed": true
+        },
+        {
+          "id": 3,
+          "title": "تماس با دکترانی که درخواست مشاوره دادن",
+          "completed": true
+        },
+        {
+          "id": 4,
+          "title": "صحبت با آقای دکتر حسینی برای جلسه مجدد برای هفته بعد",
+          "completed": true
+        },
+        {
+          "id": 5,
+          "title": "هماهنگی جلسه با آقای دکتر جلیلی متخصص مغز و اعصاب برای امروز ساعت ۲:۳۰",
+          "completed": true
+        },
+        {
+          "id": 6,
+          "title": "تسک: درست کردن اکسل CRM پیگیری A-LAND بابت تماس با دکتران و نتیجه آن",
+          "completed": true
+        },
+        {
+          "id": 7,
+          "title": "اطلاعات ویزای کاری برای پزشکان در انگلیس",
+          "completed": true
         }
       ],
       "dayStart": "2025-07-13T07:19:18.871Z",
