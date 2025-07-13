@@ -26,6 +26,7 @@
     "phone": "989120579287",
     "username": "elahe",
     "step": "main",
-    "role": "employee"
+    "role": "employee",
+    "addingTask": false
   }
 }
