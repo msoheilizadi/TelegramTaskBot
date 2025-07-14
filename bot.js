@@ -1,3 +1,4 @@
+process.env.NTBA_FIX_350 = '1';
 const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 const token = process.env.TELEGRAM_TOKEN;
@@ -103,6 +104,36 @@ bot.on("contact", (msg) => {
   const msgText = `✅ شماره‌ات دریافت شد: ${phone}\nرمز عبورت رو وارد کن لطفاً:`;
   sendLoggedMessage(chatId, msgText);
 });
+
+const path = require('path');
+
+bot.onText(/\/download_logs/, (msg) => {
+  const chatId = msg.chat.id;
+  const username = sessions[chatId]?.username;
+
+  if (username !== "soheil") {
+    return sendLoggedMessage(chatId, "⛔ شما اجازه استفاده از این فرمان را ندارید.");
+  }
+
+  const files = [
+    { path: path.resolve(__dirname, 'logs.txt'), caption: '🧾 logs.txt' },
+    { path: path.resolve(__dirname, 'sessions.json'), caption: '📋 sessions.json' },
+    { path: path.resolve(__dirname, 'data.json'), caption: '🗂 data.json' }
+  ];
+
+  files.forEach(file => {
+    try {
+      if (fs.existsSync(file.path)) {
+        bot.sendDocument(chatId, file.path, { caption: file.caption });
+      } else {
+        sendLoggedMessage(chatId, `⚠️ فایل پیدا نشد: ${file.caption}`);
+      }
+    } catch (err) {
+      sendLoggedMessage(chatId, `❌ خطا در ارسال فایل ${file.caption}: ${err.message}`);
+    }
+  });
+});
+
 
 bot.getMe().then((botInfo) => {
     console.log(`✅ Bot is connected as @${botInfo.username}`);
