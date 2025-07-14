@@ -57,25 +57,17 @@ bot.onText(/\/notify/, (msg) => {
   const chatId = msg.chat.id;
   const username = sessions[chatId]?.username;
 
-  // Only allow 'soheil' to use this command
   if (username !== "soheil") {
-    const msgText = "⛔ شما اجازه استفاده از این فرمان را ندارید.";
-    sendLoggedMessage(chatId, msgText);
+    sendLoggedMessage(chatId, "⛔ شما اجازه استفاده از این فرمان را ندارید.");
     return;
   }
 
-  const data = storage.getAllUsers();
+  sessions[chatId].step = 'awaiting_broadcast_message';
+  saveSessions();
 
-  const notice = "⚠️ The bot is undergoing maintenance from Now until Tommorow at 8AM. Some features may be temporarily unavailable.";
-
-  for (const uname in data) {
-    const user = data[uname];
-    if (user.telegramId) {
-      sendLoggedMessage(user.telegramId, notice);
-    }
-  }
-  sendLoggedMessage(chatId, "📢 پیام نگهداری برای همه کاربران ارسال شد.");
+  sendLoggedMessage(chatId, "📝 لطفاً پیامی که می‌خواهی برای همه ارسال شود را بنویس:");
 });
+
 
 bot.on("contact", (msg) => {
   const chatId = msg.chat.id;
@@ -241,6 +233,26 @@ if (sessions[chatId].addingForOther === true && !sessions[chatId].assignTo) {
 
   // 🔁 2. Handle login steps
   const step = sessions[chatId].step;
+
+  if (step === 'awaiting_broadcast_message') {
+  const data = storage.getAllUsers();
+  const broadcastMessage = text;
+
+  let count = 0;
+  for (const uname in data) {
+    const user = data[uname];
+    if (user.telegramId) {
+      sendLoggedMessage(user.telegramId, broadcastMessage);
+      count++;
+    }
+  }
+
+  sendLoggedMessage(chatId, `📢 پیام برای ${count} کاربر ارسال شد.`);
+  sessions[chatId].step = 'main';
+  saveSessions();
+  return;
+}
+
 
   if (step === 'username') {
     const user = storage.getUser(text);
