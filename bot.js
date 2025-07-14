@@ -6,10 +6,12 @@ const storage = require('./storage');
 const cron = require('node-cron');
 const fs = require('fs');
 const sessionsFile = './sessions.json';
+const moment = require('moment-timezone');
 
 
 function sendLoggedMessage(chatId, message, options = {}) {
-  const log = `[SEND] [${new Date().toLocaleString('fa-IR')}] To ${chatId}: ${message}\n`;
+  const logTime = moment().tz("Asia/Tehran").format('YYYY-MM-DD HH:mm');
+  const log = `[SEND] [${logTime}] To ${chatId}: ${message}\n`;
   fs.appendFileSync('logs.txt', log);
   return bot.sendMessage(chatId, message, options);
 } 
@@ -308,18 +310,15 @@ if (data === 'view_attendance') {
 
     if (user.role === 'employee') {
       // تاریخ شروع و پایان به صورت Date
-      const startedDate = user.dayStart ? new Date(user.dayStart) : null;
-      const endedDate = user.dayEnd ? new Date(user.dayEnd) : null;
+    const startedDate = user.dayStart ? moment(user.dayStart).tz("Asia/Tehran") : null;
+    const endedDate   = user.dayEnd   ? moment(user.dayEnd).tz("Asia/Tehran") : null;
 
       // تابع برای فرمت ساعت ۲۴ ساعته به فارسی (مثلاً ۱۶:۰۰)
       function formatTime(date) {
         if (!date) return '';
-        return date.toLocaleTimeString('fa-IR', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: false
-        });
+        return date.format('HH:mm');
       }
+
 
       const started = formatTime(startedDate);
       const ended = formatTime(endedDate);
@@ -354,23 +353,22 @@ if (data === 'view_attendance') {
       return;
     }
 
-    const now = new Date();
-    user.dayStart = now.toISOString();
+    const now = moment().tz("Asia/Tehran");
+    user.dayStart = now.toISOString(); // Save in ISO but from Tehran timezone
     user.dayEnd = null;
     storage.updateUser(username, user);
 
-    const endTime = new Date(now.getTime() + 8 * 60 * 60 * 1000);
-    const formattedEnd = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const endTime = now.clone().add(8, 'hours');
+    const formattedStart = now.format("HH:mm");
+    const formattedEnd = endTime.format("HH:mm");
 
     sendLoggedMessage(chatId,
-      `✅ روز کاری از ساعت ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} شروع شد 💪\n🕒 حدود ساعت ${formattedEnd} می‌تونی شیفتتو ببندی و بزنی بیرون! 😎`
+      `✅ روز کاری از ساعت ${formattedStart} شروع شد 💪\n🕒 حدود ساعت ${formattedEnd} می‌تونی شیفتتو ببندی و بزنی بیرون! 😎`
     );
 
-
-    // Show tasks + "End Day"
     showEmployeeMenu(chatId, username);
 
-    // ⏲ Reminder after 8 hours
+    // Reminder after 8 hours (approximation, still uses server time for timeout)
     setTimeout(() => {
       const latest = storage.getUser(username);
       if (latest.dayStart && !latest.dayEnd) {
@@ -378,6 +376,7 @@ if (data === 'view_attendance') {
       }
     }, 8 * 60 * 60 * 1000);
   }
+
 
 
   // 📋 View a Task
@@ -466,17 +465,18 @@ else if (data.startsWith('assign_')) {
   // 🔴 End Day
   if (data === 'end_day') {
     const user = storage.getUser(username);
-    const now = new Date();
+    const now = moment().tz("Asia/Tehran");
 
     if (!user.dayStart) {
       return sendLoggedMessage(chatId, "⚠️ هنوز که روزت رو استارت نزدی!");
     }
 
     user.dayEnd = now.toISOString();
-    const start = new Date(user.dayStart);
-    const durationMs = now - start;
-    const hours = Math.floor(durationMs / (1000 * 60 * 60));
-    const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+    const start = moment(user.dayStart).tz("Asia/Tehran");
+    const durationMs = now.diff(start);
+    const hours = Math.floor(durationMs / (60 * 60 * 1000));
+    const minutes = Math.floor((durationMs % (60 * 60 * 1000)) / (60 * 1000));
+
 
     const completedTasks = user.tasks.filter(t => t.completed);
 
