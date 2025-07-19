@@ -22,62 +22,67 @@
           "completed": false
         },
         {
-          "id": 8,
-          "title": "Intorduce task management bot to elahe",
+          "id": 20,
+          "title": "New Feature for telegram bot:\nAbility to get days off",
           "completed": false
         },
         {
-          "id": 9,
-          "title": "Write all task that should be done",
+          "id": 23,
+          "title": "New Feature for telegram bot: \nLive location sharing for authentication of being in office",
           "completed": false
         },
         {
-          "id": 10,
-          "title": "درود \nمراجعه به گروهی که  در واتس اپ برای DNV - Spin تشکیل شده . شود",
+          "id": 24,
+          "title": "Feature for telegram bot: \nAdmin can see the task of employee in middle of the day.",
           "completed": false
         },
         {
-          "id": 11,
-          "title": "Desktop page of greece",
+          "id": 25,
+          "title": "Feature for telegram bot: \nUsers can see their remaining days off and how much they should work",
           "completed": false
         },
         {
-          "id": 12,
-          "title": "Desktop page of Spain",
+          "id": 27,
+          "title": "Get gpt plus for office",
           "completed": false
         },
         {
-          "id": 13,
-          "title": "Server for telegram bot",
+          "id": 32,
+          "title": "Remove data and access of tehrani n sadaf + lock password changing of mac",
           "completed": false
         },
         {
-          "id": 14,
-          "title": "Configure bot for WhatsApp campaign of nikan sepid doctors",
+          "id": 33,
+          "title": "اماده کردن ایپد برای پرزنت و ریختن تمام اطلاعات شامل قیمت واحد ها و پاور پرزنت",
+          "completed": true
+        },
+        {
+          "id": 34,
+          "title": "آقا سهیل \nبا توجه به افزایش حجم جلسات و پیگیری‌های مرتبط با پروژه‌های بلوار ۳۱۱ و A Land، لطفاً یک ساختار منظم و قابل پیگیری برای مدیریت تسک‌ها طراحی کن تا موارد زیر در اون لحاظ بشه:\n 1. ثبت تسک‌ها با دسته‌بندی دقیق بین پروژه بلوار ۳۱۱ و A Land\n 2. تعریف نوع فعالیت (جلسه، تماس تلفنی، پیگیری خاص، ارسال فایل و …)\n 3. تعیین تاریخ و ساعت مشخص برای هر تسک\n 4. مشخص کردن شخص مسئول انجام یا پیگیری تسک\n 5. وضعیت تسک (باز، در حال انجام، انجام شده، نیاز به بررسی)\n 6. قابلیت ثبت یادداشت یا نکات کلیدی جلسه/تماس\n\nهدف اصلی، جلوگیری از موازی‌کاری، فراموشی وظایف روزانه و امکان ارائه گزارش کاری منظم در جلسات داخلی است.\nاگر امکانش هست این سیستم روی پلتفرمی مثل Trello، Notion یا ابزار مشابه اجرا بشه که همه اعضای تیم هم دسترسی داشته باشن.",
           "completed": false
         },
         {
-          "id": 15,
-          "title": "Send all messages to nikan sepid doctors (run the campaign)",
+          "id": 35,
+          "title": "ساختن صفحه درباره ای لند برای پی سی و موبایل",
           "completed": false
         },
         {
-          "id": 16,
-          "title": "Tablet page of Greece",
-          "completed": false
+          "id": 36,
+          "title": "اماده کردن فایل های\n311\n411\n511\n328\n428\n528\n928\nبلوار ۳۱۱ برای ارسال",
+          "completed": true
         },
         {
-          "id": 17,
-          "title": "Tablet Page of Spain",
-          "completed": false
+          "id": 37,
+          "title": "کاهش حجم ویدئو گرفته شده از بلوار ۳۱۱ با drone",
+          "completed": true
         },
         {
-          "id": 18,
-          "title": "Tablet page for Hungary",
-          "completed": false
+          "id": 38,
+          "title": "محاسبه حقوق و دستمزد تیرماه خانم خستو و خرداد و تیر ماه خانم صدف",
+          "completed": true
         }
       ],
-      "dayStart": "2025-07-14T09:35:00+03:30",
+      "dayStart": "2025-07-19T07:35:30.475Z",
       "dayEnd": null
     },
     "elahe": {
@@ -97,47 +102,22 @@
           "completed": false
         },
         {
-          "id": 3,
-          "title": "درود \nمراجعه به گروهی که  در واتس اپ برای DNV - Spin تشکیل شده . شود",
-          "completed": true
-        },
-        {
-          "id": 4,
-          "title": "اصلاح تمپلیت‌های متن",
-          "completed": true
-        },
-        {
           "id": 5,
           "title": "دیزاین بصری وب‌ سایت aland  شامل صفحه اول وب‌سایت، و صفحات یونان ، اسپانیا، مجارستان در فرمت دسکتاپ، تبلت و موبایل",
           "completed": false
         },
         {
           "id": 6,
-          "title": "جلسه با دکتر قمری و خانم امیرحسینی",
-          "completed": true
-        },
-        {
-          "id": 7,
-          "title": "نوشتن درباره ما وبسایت",
-          "completed": true
+          "title": "خانوم الهه لطفا گزارش کاری امروزتون رو بنویسید",
+          "completed": false
         },
         {
           "id": 8,
-          "title": "نوشتن ارزش های مجموعه برای وبسایت",
-          "completed": true
-        },
-        {
-          "id": 9,
-          "title": "نوشتن خدماتی که a-land ارائه میده",
-          "completed": true
-        },
-        {
-          "id": 10,
-          "title": "دیزاین درباره ما خدمات و ارزش های در وبسایت",
-          "completed": true
+          "title": "قرار شد لطفا  یک ویس پرزنت تهیه کنید",
+          "completed": false
         }
       ],
-      "dayStart": "2025-07-14T10:15:00+03:30",
+      "dayStart": null,
       "dayEnd": null
     },
     "negar": {
@@ -158,46 +138,6 @@
         }
       ],
       "dayStart": null,
-      "dayEnd": null
-    },
-    "sadaf": {
-      "password": "12345",
-      "role": "employee",
-      "telegramId": 6857817945,
-      "phone": "989337785565",
-      "tasks": [
-        {
-          "id": 1,
-          "title": "مطالعه دقیق تر از اقامت پزشکی در انگلیس",
-          "completed": true
-        },
-        {
-          "id": 2,
-          "title": "تماس با علاقمندان باشگاه سوارکاری برای ۳۱۱",
-          "completed": false
-        },
-        {
-          "id": 3,
-          "title": "کامل کردن CRM ALAND",
-          "completed": true
-        },
-        {
-          "id": 4,
-          "title": "تماس با دکتر وارسته بابت فایل هایی که براشون ارسال شد",
-          "completed": true
-        },
-        {
-          "id": 5,
-          "title": "ارسال فایل های رندر ۳۱۱ از ۹۰۰ تا ۱۲۰۰ درهم",
-          "completed": true
-        },
-        {
-          "id": 6,
-          "title": "تماس با پزشکانی که مشاوره برای ۳۱۱ میخواستن",
-          "completed": true
-        }
-      ],
-      "dayStart": "2025-07-14T09:39:00+03:30",
       "dayEnd": null
     },
     "mohammadi": {

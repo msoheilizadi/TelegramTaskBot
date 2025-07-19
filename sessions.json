@@ -12,21 +12,13 @@
     "username": "soheil",
     "step": "awaiting_broadcast_message",
     "role": "employee",
+    "editingTask": null,
     "addingTask": false
-  },
-  "6857817945": {
-    "phone": "989337785565",
-    "username": "sadaf",
-    "step": "main",
-    "role": "employee",
-    "addingTask": false,
-    "editingTask": null
   },
   "5772603645": {
-    "phone": "989120579287",
-    "username": "elahe",
-    "step": "main",
-    "role": "employee",
-    "addingTask": false
+    "step": "await_contact"
+  },
+  "7228050327": {
+    "step": "await_contact"
   }
 }
