@@ -17,6 +17,10 @@ const completeTask    = require('./handlers/callbacks/completeTask');
 const editTask        = require('./handlers/callbacks/editTask');
 const addTask         = require('./handlers/callbacks/addTask');
 const endDay          = require('./handlers/callbacks/endDay');
+const requestLeave = require('./handlers/callbacks/requestLeave');
+const approveLeave = require('./handlers/callbacks/approveLeave');
+const rejectLeave  = require('./handlers/callbacks/rejectLeave');
+const viewUserTasks = require('./handlers/viewUserTask');
 
 // Mock user database
 let sessions = loadSessions(); // Logged-in users { telegramId: { username, role } }
@@ -88,6 +92,10 @@ bot.on('callback_query', (query) => {
   if (editTask      (bot, query, sessions, saveSessions)) return;
   if (addTask       (bot, query, sessions, saveSessions)) return;
   if (endDay        (bot, query, sessions, saveSessions)) return;
+  if (requestLeave(bot, query, sessions, saveSessions)) return;
+  if (approveLeave(bot, query, sessions)) return;
+  if (rejectLeave (bot, query, sessions)) return;
+  if (viewUserTasks  (bot, query, sessions, saveSessions)) return;
 
   // fallback
   sendLoggedMessage(chatId, '❓ دستور نامشخص.');

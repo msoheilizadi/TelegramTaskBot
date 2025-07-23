@@ -51,7 +51,8 @@ module.exports = async function handleLoginSteps(chatId, text, session, sessions
       reply_markup: {
         inline_keyboard: [
           [{ text: "📤 اختصاص تسک به کارمند", callback_data: "assign_task" }],
-          [{ text: "📋 وضعیت حضور", callback_data: "view_attendance" }]
+          [{ text: "📋 وضعیت حضور", callback_data: "view_attendance" }],
+          [{ text: "🗂 دیدن تسک‌های کارمندان", callback_data: "view_tasks" }]
         ]
       }
     });

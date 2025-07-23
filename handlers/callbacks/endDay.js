@@ -20,6 +20,19 @@ module.exports = function endDay(bot, query, sessions, saveSessions) {
   const durationMs = now.diff(start);
   const hours = Math.floor(durationMs / (60 * 60 * 1000));
   const minutes = Math.floor((durationMs % (60 * 60 * 1000)) / (60 * 1000));
+  const durationMinutes = Math.floor(durationMs / (60 * 1000));
+
+  const jDate = now.clone().locale('fa').format('YYYY/MM/DD');
+
+  // Ensure the user has a workLog object to store daily logs
+  if (!user.workLog) user.workLog = {};
+
+  // Store today's worked minutes
+  user.workLog[jDate] = durationMinutes;
+
+  // Save user object back to your data.json storage
+  storage.updateUser(username, user);
+  
 
   const completedTasks = user.tasks.filter(t => t.completed);
   const report =

@@ -5,6 +5,9 @@
       "role": "employee",
       "telegramId": 668058250,
       "phone": "989015745264",
+      "workLog": {
+
+      },
       "tasks": [
         {
           "id": 6,
@@ -19,7 +22,7 @@
         {
           "id": 20,
           "title": "New Feature for telegram bot:\nAbility to get days off",
-          "completed": false
+          "completed": true
         },
         {
           "id": 23,
@@ -60,6 +63,11 @@
           "id": 48,
           "title": "درست کردن دیتابیس others",
           "completed": true
+        },
+        {
+          "id": 49,
+          "title": "Refactoring both crm and task manager codes to a clean code fir better management and readability.",
+          "completed": true
         }
       ],
       "dayStart": "2025-07-23T06:22:50.073Z",
@@ -70,6 +78,9 @@
       "role": "employee",
       "telegramId": 5772603645,
       "phone": "989120579287",
+      "workLog": {
+
+      },
       "tasks": [
         {
           "id": 1,
@@ -105,6 +116,9 @@
       "role": "employee",
       "telegramId": 442510228,
       "phone": "989129581795",
+      "workLog": {
+
+      },
       "tasks": [
         {
           "id": 1,

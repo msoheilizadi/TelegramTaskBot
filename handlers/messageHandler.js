@@ -2,6 +2,10 @@ const handleLoginSteps = require('./handleLoginSteps');
 const handleTaskEdit = require('./handleTaskEdit');
 const handleTaskAdd = require('./handleTaskAdd');
 const handleAssignTask = require('./handleAssignTask');
+const {sendLoggedMessage} = require('../utils/logger');
+const storage = require('../storage');
+const handleRequestLeave = require('./handleRequestLeave');
+
 
 module.exports = async function handleMessage(bot, msg, sessions, saveSessions) {
   const chatId = msg.chat.id;
@@ -16,6 +20,13 @@ module.exports = async function handleMessage(bot, msg, sessions, saveSessions) 
     await handleTaskEdit(chatId, text, session, sessions, saveSessions);
     return;
   }
+
+  
+  // ——— Leave request flow ———
+  if (handleRequestLeave(bot, chatId, text, session, sessions, saveSessions)) {
+    return;
+  }
+  
 
   // Handle Task Add
   if (session.addingTask) {
