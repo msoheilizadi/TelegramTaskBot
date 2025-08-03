@@ -8,19 +8,22 @@ const handleMessage = require("./handlers/messageHandler");
 const startCmd = require("./handlers/commands/start");
 const notifyCmd = require("./handlers/commands/notify");
 const downloadLogsCmd = require("./handlers/commands/downloadLogs");
-const viewAttendance  = require('./handlers/callbacks/viewAttendance');
-const startDay        = require('./handlers/callbacks/startDay');
-const viewTask        = require('./handlers/callbacks/viewTask');
-const assignMenu      = require('./handlers/callbacks/assignTaskMenu');
-const assignUser      = require('./handlers/callbacks/assignUser');
-const completeTask    = require('./handlers/callbacks/completeTask');
-const editTask        = require('./handlers/callbacks/editTask');
-const addTask         = require('./handlers/callbacks/addTask');
-const endDay          = require('./handlers/callbacks/endDay');
-const requestLeave = require('./handlers/callbacks/requestLeave');
-const approveLeave = require('./handlers/callbacks/approveLeave');
-const rejectLeave  = require('./handlers/callbacks/rejectLeave');
-const viewUserTasks = require('./handlers/viewUserTask');
+const viewAttendance = require("./handlers/callbacks/viewAttendance");
+const startDay = require("./handlers/callbacks/startDay");
+const viewTask = require("./handlers/callbacks/viewTask");
+const assignMenu = require("./handlers/callbacks/assignTaskMenu");
+const assignUser = require("./handlers/callbacks/assignUser");
+const completeTask = require("./handlers/callbacks/completeTask");
+const editTask = require("./handlers/callbacks/editTask");
+const addTask = require("./handlers/callbacks/addTask");
+const endDay = require("./handlers/callbacks/endDay");
+const requestLeave = require("./handlers/callbacks/requestLeave");
+const approveLeave = require("./handlers/callbacks/approveLeave");
+const rejectLeave = require("./handlers/callbacks/rejectLeave");
+const viewUserTasks = require("./handlers/viewUserTask");
+const authenticateLocation = require("./locationAuth");
+const startRemoteDay = require("./handlers/callbacks/startRemoteDay");
+const showEmployeeMenu = require("./handlers/menus/showEmployeeMenu");
 
 // Mock user database
 let sessions = loadSessions(); // Logged-in users { telegramId: { username, role } }
@@ -76,31 +79,57 @@ bot.on("message", async (msg) => {
 });
 
 // Handle task button clicks
-bot.on('callback_query', (query) => {
+bot.on("callback_query", (query) => {
   const chatId = query.message.chat.id;
   if (!sessions[chatId]?.username) {
-    return sendLoggedMessage(chatId, "⚠️ لطفاً ابتدا /start را بزنید و وارد شوید.");
+    return sendLoggedMessage(
+      chatId,
+      "⚠️ لطفاً ابتدا /start را بزنید و وارد شوید."
+    );
   }
 
   // try each handler in order
   if (viewAttendance(bot, query, sessions, saveSessions)) return;
-  if (startDay      (bot, query, sessions, saveSessions)) return;
-  if (viewTask      (bot, query, sessions, saveSessions)) return;
-  if (assignMenu    (bot, query, sessions, saveSessions)) return;
-  if (assignUser    (bot, query, sessions, saveSessions)) return;
-  if (completeTask  (bot, query, sessions, saveSessions)) return;
-  if (editTask      (bot, query, sessions, saveSessions)) return;
-  if (addTask       (bot, query, sessions, saveSessions)) return;
-  if (endDay        (bot, query, sessions, saveSessions)) return;
+  if (startDay(bot, query, sessions, saveSessions)) return;
+  if (
+    startRemoteDay(
+      bot,
+      query,
+      sessions,
+      saveSessions,
+      (bot, chatId, username) => {
+        showEmployeeMenu(chatId, username);
+      }
+    )
+  )
+    return;
+  if (viewTask(bot, query, sessions, saveSessions)) return;
+  if (assignMenu(bot, query, sessions, saveSessions)) return;
+  if (assignUser(bot, query, sessions, saveSessions)) return;
+  if (completeTask(bot, query, sessions, saveSessions)) return;
+  if (editTask(bot, query, sessions, saveSessions)) return;
+  if (addTask(bot, query, sessions, saveSessions)) return;
+  if (endDay(bot, query, sessions, saveSessions)) return;
   if (requestLeave(bot, query, sessions, saveSessions)) return;
   if (approveLeave(bot, query, sessions)) return;
-  if (rejectLeave (bot, query, sessions)) return;
-  if (viewUserTasks  (bot, query, sessions, saveSessions)) return;
+  if (rejectLeave(bot, query, sessions)) return;
+  if (viewUserTasks(bot, query, sessions, saveSessions)) return;
 
   // fallback
-  sendLoggedMessage(chatId, '❓ دستور نامشخص.');
+  sendLoggedMessage(chatId, "❓ دستور نامشخص.");
 });
 
+bot.on("location", (msg) => {
+  authenticateLocation(
+    bot,
+    msg,
+    sessions,
+    saveSessions,
+    (bot, chatId, username) => {
+      showEmployeeMenu(chatId, username);
+    }
+  );
+});
 
 cron.schedule("0 0 * * *", () => {
   console.log("🌙 Midnight reset running...");
@@ -127,3 +156,30 @@ cron.schedule("0 0 * * *", () => {
   storage.writeData(data);
   console.log("✅ Daily reset complete.");
 });
+
+// Daily automatic log sending at 7:00 AM
+cron.schedule(
+  "0 21 * * *",
+  () => {
+    console.log("📥 Triggering automatic downloadLogsCmd...");
+
+    const adminChatId = 668058250;
+
+    // Ensure session for auto-run
+    if (!sessions[adminChatId]) {
+      sessions[adminChatId] = { username: "soheil" };
+      saveSessions(sessions);
+    }
+
+    const fakeMsg = {
+      chat: { id: adminChatId },
+      from: { id: adminChatId },
+      text: "/download_logs",
+    };
+
+    downloadLogsCmd.handler(bot, fakeMsg, sessions);
+  },
+  {
+    timezone: "Asia/Tehran",
+  }
+);

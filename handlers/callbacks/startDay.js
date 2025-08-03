@@ -1,6 +1,5 @@
 const { sendLoggedMessage } = require('../../utils/logger');
 const storage = require('../../storage');
-const moment = require('moment-timezone');
 const showEmployeeMenu = require('../menus/showEmployeeMenu');
 
 module.exports = function startDay(bot, query, sessions, saveSessions) {
@@ -10,35 +9,27 @@ module.exports = function startDay(bot, query, sessions, saveSessions) {
   const username = sessions[chatId].username;
   const user = storage.getUser(username);
 
+  // ✅ If user already started the day
   if (user.dayStart) {
     sendLoggedMessage(chatId, '❗ شما قبلاً روز کاری‌تان را شروع کرده‌اید.');
     showEmployeeMenu(chatId, username);
     return true;
   }
 
-  const now = moment().tz('Asia/Tehran');
-  user.dayStart = now.toISOString();
-  user.dayEnd   = null;
-  storage.updateUser(username, user);
+  // ✅ Ask for location only if day hasn't started
+  sessions[chatId].step = 'waiting_for_location';
+  saveSessions(sessions);
 
-  const endTime = now.clone().add(8, 'hours');
-  sendLoggedMessage(
-    chatId,
-    `✅ روز کاری از ساعت ${now.format('HH:mm')} شروع شد 💪\n` +
-    `🕒 حدود ساعت ${endTime.format('HH:mm')} می‌تونی شیفتتو ببندی و بزنی بیرون! 😎`
-  );
-
-  showEmployeeMenu(chatId, username);
-
-  setTimeout(() => {
-    const latest = storage.getUser(username);
-    if (latest.dayStart && !latest.dayEnd) {
-      sendLoggedMessage(
-        chatId,
-        '🕗 ۸ ساعت کاری تموم شد! هر وقت آماده بودی می‌تونی شیفتت رو تموم کنی و استراحت کنی 😊'
-      );
+  bot.sendMessage(chatId, '📍 لطفاً موقعیت مکانی خود را برای شروع روز کاری ارسال کنید (ابتدا لوکیشن خود را روشن کنید):', {
+    reply_markup: {
+      keyboard: [[{
+        text: 'ارسال موقعیت مکانی 📍',
+        request_location: true
+      }]],
+      one_time_keyboard: true,
+      resize_keyboard: true
     }
-  }, 8 * 60 * 60 * 1000);
+  });
 
   return true;
 };

@@ -42,7 +42,7 @@ module.exports = async function handleLoginSteps(chatId, text, session, sessions
     if (user.role === 'employee') {
       return sendLoggedMessage(chatId, "✅ سلام و وقت بخیر! برای شروع روز کاری‌تون، لطفاً دکمه زیر رو بزنید.", {
         reply_markup: {
-          inline_keyboard: [[{ text: "🟢 شروع روز", callback_data: "start_day" }]]
+          inline_keyboard: [[{ text: "🟢 شروع روز", callback_data: "start_day" },{ text: "💻 شروع روز دورکاری", callback_data: "start_remote_day" }]]
         }
       });
     }

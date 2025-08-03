@@ -6,7 +6,7 @@
       "telegramId": 668058250,
       "phone": "989015745264",
       "workLog": {
-
+        "2025/07/27": 0
       },
       "tasks": [
         {
@@ -18,11 +18,6 @@
           "id": 7,
           "title": "Make a AI interegated bot in telegram for auto answering texts\n(write to do's for this project)",
           "completed": false
-        },
-        {
-          "id": 20,
-          "title": "New Feature for telegram bot:\nAbility to get days off",
-          "completed": true
         },
         {
           "id": 23,
@@ -58,29 +53,23 @@
           "id": 41,
           "title": "درست کردن ویدئو پروژه ۳۱۱ برای پخش",
           "completed": false
-        },
-        {
-          "id": 48,
-          "title": "درست کردن دیتابیس others",
-          "completed": true
-        },
-        {
-          "id": 49,
-          "title": "Refactoring both crm and task manager codes to a clean code fir better management and readability.",
-          "completed": true
         }
       ],
-      "dayStart": "2025-07-23T06:22:50.073Z",
-      "dayEnd": null
+      "dayStart": null,
+      "dayEnd": null,
+      "attendance": {
+        "2025-07-27": {
+          "startTime": "2025-07-27T11:48:08+03:30",
+          "type": "remote"
+        }
+      }
     },
     "elahe": {
       "password": "elahe62198610",
       "role": "employee",
       "telegramId": 5772603645,
       "phone": "989120579287",
-      "workLog": {
-
-      },
+      "workLog": {},
       "tasks": [
         {
           "id": 1,
@@ -116,9 +105,7 @@
       "role": "employee",
       "telegramId": 442510228,
       "phone": "989129581795",
-      "workLog": {
-
-      },
+      "workLog": {},
       "tasks": [
         {
           "id": 1,
