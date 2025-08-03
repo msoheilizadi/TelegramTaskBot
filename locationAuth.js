@@ -5,7 +5,7 @@ const storage = require('./storage');
 
 const OFFICE_LAT = 35.802306;
 const OFFICE_LNG = 51.456083;
-const ALLOWED_DISTANCE_METERS = 1000;
+const ALLOWED_DISTANCE_METERS = 100;
 
 function haversineDistance(lat1, lon1, lat2, lon2) {
   const R = 6371e3; // Radius of Earth in meters
