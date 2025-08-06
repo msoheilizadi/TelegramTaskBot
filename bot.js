@@ -157,7 +157,6 @@ cron.schedule("0 0 * * *", () => {
   console.log("✅ Daily reset complete.");
 });
 
-// Daily automatic log sending at 7:00 AM
 cron.schedule(
   "0 21 * * *",
   () => {

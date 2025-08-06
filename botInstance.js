@@ -1,20 +1,29 @@
 require('dotenv').config();
+const express = require('express');
 const TelegramBot = require('node-telegram-bot-api');
 
 const token = process.env.TELEGRAM_TOKEN;
+const botUrl = process.env.BOT_WEBHOOK_URL;
+const port = process.env.PORT || 3000;
 
-if (typeof token !== 'string' || !token.trim()) {
-  throw new Error('TELEGRAM_TOKEN is not defined or not a string');
-}
+const bot = new TelegramBot(token, { webHook: { port } });
+bot.setWebHook(`${botUrl}/bot${token}`);
 
-const bot = new TelegramBot(token, { polling: true });
+const app = express();
+app.use(express.json());
 
-bot.getMe()
-  .then(botInfo => {
-    console.log(`✅ Bot @${botInfo.username} is connected to the Telegram API and ready!`);
-  })
-  .catch(err => {
-    console.error('❌ Failed to connect to Telegram API:', err);
-  });
+app.post(`/bot${token}`, (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
+
+app.get('/', (req, res) => {
+  res.send('Bot is running');
+});
+
+app.listen(port, () => {
+  console.log(`✅ Server running on port ${port}`);
+});
+
 
 module.exports = bot;
