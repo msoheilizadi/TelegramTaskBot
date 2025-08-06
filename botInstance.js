@@ -4,7 +4,7 @@ const express = require('express');
 
 const token = process.env.TELEGRAM_TOKEN;
 const port = process.env.PORT || 3000;
-const webhookDomain = process.env.BOT_WEBHOOK_URL; // e.g. https://your-domain.com
+const webhookDomain = process.env.BOT_WEBHOOK_URL;
 
 if (typeof token !== 'string' || !token.trim()) {
   throw new Error('TELEGRAM_TOKEN is not defined or not a string');
