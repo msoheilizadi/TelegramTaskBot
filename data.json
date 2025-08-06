@@ -20,16 +20,6 @@
           "completed": false
         },
         {
-          "id": 23,
-          "title": "New Feature for telegram bot: \nLive location sharing for authentication of being in office",
-          "completed": false
-        },
-        {
-          "id": 24,
-          "title": "Feature for telegram bot: \nAdmin can see the task of employee in middle of the day.",
-          "completed": false
-        },
-        {
           "id": 25,
           "title": "Feature for telegram bot: \nUsers can see their remaining days off and how much they should work",
           "completed": false
@@ -37,11 +27,6 @@
         {
           "id": 27,
           "title": "Get gpt plus for office",
-          "completed": false
-        },
-        {
-          "id": 34,
-          "title": "آقا سهیل \nبا توجه به افزایش حجم جلسات و پیگیری‌های مرتبط با پروژه‌های بلوار ۳۱۱ و A Land، لطفاً یک ساختار منظم و قابل پیگیری برای مدیریت تسک‌ها طراحی کن تا موارد زیر در اون لحاظ بشه:\n 1. ثبت تسک‌ها با دسته‌بندی دقیق بین پروژه بلوار ۳۱۱ و A Land\n 2. تعریف نوع فعالیت (جلسه، تماس تلفنی، پیگیری خاص، ارسال فایل و …)\n 3. تعیین تاریخ و ساعت مشخص برای هر تسک\n 4. مشخص کردن شخص مسئول انجام یا پیگیری تسک\n 5. وضعیت تسک (باز، در حال انجام، انجام شده، نیاز به بررسی)\n 6. قابلیت ثبت یادداشت یا نکات کلیدی جلسه/تماس\n\nهدف اصلی، جلوگیری از موازی‌کاری، فراموشی وظایف روزانه و امکان ارائه گزارش کاری منظم در جلسات داخلی است.\nاگر امکانش هست این سیستم روی پلتفرمی مثل Trello، Notion یا ابزار مشابه اجرا بشه که همه اعضای تیم هم دسترسی داشته باشن.",
           "completed": false
         },
         {
@@ -63,6 +48,22 @@
           "type": "remote"
         }
       }
+    },
+    "saina": {
+      "password": "12345",
+      "role": "employee",
+      "telegramId": 92613413,
+      "phone": "989126607187",
+      "workLog": {},
+      "tasks": [
+        {
+          "id": 1,
+          "title": "استارت کردن ربات تلگرام",
+          "completed": false
+        }
+      ],
+      "dayStart": null,
+      "dayEnd": null
     },
     "elahe": {
       "password": "elahe62198610",
@@ -121,6 +122,7 @@
       "dayStart": null,
       "dayEnd": null
     },
+    
     "mohammadi": {
       "password": "admin",
       "role": "manager",
