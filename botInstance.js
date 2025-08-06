@@ -27,10 +27,8 @@ app.post(`/bot${token}`, (req, res) => {
   res.sendStatus(200);
 });
 
-// Set webhook URL
 bot.setWebHook(`${webhookDomain}/bot${token}`);
 
-// Start the server
 app.listen(port, () => {
   console.log(`🚀 Express server is running on port ${port}`);
   bot.getMe()
