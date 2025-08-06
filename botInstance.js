@@ -11,19 +11,15 @@ if (!token || !botUrl) throw new Error('Missing TELEGRAM_TOKEN or BOT_WEBHOOK_UR
 const app = express();
 app.use(express.json());
 
-// Create ONE bot instance with webhook
 const bot = new TelegramBot(token, { webHook: { port } });
 
-// Set webhook (only once per deploy)
 bot.setWebHook(`${botUrl}/bot${token}`);
 
-// Route Telegram calls the webhook
 app.post(`/bot${token}`, (req, res) => {
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
 
-// Optional health check
 app.get('/', (req, res) => res.send('Bot is running'));
 
 app.listen(port, () => {

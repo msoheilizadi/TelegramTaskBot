@@ -28,11 +28,6 @@ const showEmployeeMenu = require("./handlers/menus/showEmployeeMenu");
 // Mock user database
 let sessions = loadSessions(); // Logged-in users { telegramId: { username, role } }
 
-bot.on("polling_error", (error) => {
-  console.error("🛑 [polling_error] full error object:", error);
-  if (error.stack) console.error(error.stack);
-});
-
 bot.onText(startCmd.pattern, (msg) => {
   startCmd.handler(bot, msg, sessions, saveSessions);
 });
