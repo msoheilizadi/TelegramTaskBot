@@ -16,6 +16,7 @@ RUN apt-get update && \
         libreoffice-writer \
         fonts-dejavu-core \
         libgl1 \
+        fontconfig \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy package.json and package-lock.json first (for caching)
@@ -30,6 +31,14 @@ RUN if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
 
 # Copy the rest of the project files
 COPY . .
+
+# Copy custom fonts into system fonts directory
+COPY fonts /usr/share/fonts/truetype/custom/
+
+# Update font cache and verify fonts installed
+RUN fc-cache -f -v && \
+    echo "✅ Installed fonts:" && \
+    fc-list | grep -Ei "calibri|tw cen mt" || (echo "❌ Fonts not found!" && exit 1)
 
 # Environment variable for Python path
 ENV PY_BIN=/usr/bin/python3
