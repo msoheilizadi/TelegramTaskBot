@@ -92,13 +92,11 @@ def create_payment_plan_excel(unit_number, discount, payment_method):
 def excel_to_pdf(excel_path, pdf_path):
     output_dir = os.path.dirname(pdf_path)
     subprocess.run([
-        r"C:\Program Files\LibreOffice\program\soffice.exe",
+        "soffice",
         "--headless",
-        "--convert-to",
-        "pdf",
+        "--convert-to", "pdf",
         excel_path,
-        "--outdir",
-        output_dir
+        "--outdir", output_dir
     ], check=True)
 
 
