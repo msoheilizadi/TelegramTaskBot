@@ -3,8 +3,6 @@ import os
 from PIL import Image as PILImage
 import subprocess
 import fitz
-import tkinter as tk
-from tkinter import ttk, messagebox
 import argparse
 import sys
 
