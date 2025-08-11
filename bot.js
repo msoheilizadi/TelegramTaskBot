@@ -24,6 +24,7 @@ const viewUserTasks = require("./handlers/viewUserTask");
 const authenticateLocation = require("./locationAuth");
 const startRemoteDay = require("./handlers/callbacks/startRemoteDay");
 const showEmployeeMenu = require("./handlers/menus/showEmployeeMenu");
+const handlePaymentFlow = require("./handlers/callbacks/create_payment");
 
 // Mock user database
 let sessions = loadSessions(); // Logged-in users { telegramId: { username, role } }
@@ -109,6 +110,7 @@ bot.on("callback_query", (query) => {
   if (approveLeave(bot, query, sessions)) return;
   if (rejectLeave(bot, query, sessions)) return;
   if (viewUserTasks(bot, query, sessions, saveSessions)) return;
+  if (handlePaymentFlow(bot, query, sessions, saveSessions)) return;
 
   // fallback
   sendLoggedMessage(chatId, "❓ دستور نامشخص.");

@@ -10,10 +10,16 @@
   "668058250": {
     "phone": "989015745264",
     "username": "soheil",
-    "role": "employee"
+    "role": "employee",
+    "step": "main",
+    "addingTask": false
   },
   "5772603645": {
-    "step": "await_contact"
+    "phone": "989120579287",
+    "username": "elahe",
+    "role": "employee",
+    "editingTask": null,
+    "addingTask": false
   },
   "7228050327": {
     "step": "await_contact"
