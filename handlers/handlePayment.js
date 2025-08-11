@@ -37,7 +37,7 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
 
     const dummyOutput = "ignored.pdf";
 
-    const pyProcess = spawn("python", [
+    const pyProcess = spawn("python3", [
       scriptPath,
       "--unit",
       session.unit,
