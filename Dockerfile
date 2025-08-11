@@ -14,8 +14,9 @@ COPY package*.json ./
 RUN npm ci --production
 
 # نصب پکیج‌های پایتون از requirements.txt (در صورت وجود)
-COPY requirements.txt . || true
-RUN if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+COPY requirements.txt ./
+RUN pip3 install -r requirements.txt
+
 
 # کپی کل پروژه
 COPY . .
