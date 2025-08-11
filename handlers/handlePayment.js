@@ -36,8 +36,9 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
     console.log("Running python script:", scriptPath);
 
     const dummyOutput = "ignored.pdf";
+    const pythonBin = process.env.PY_BIN || "python3";
 
-    const pyProcess = spawn("python3", [
+    const pyProcess = spawn(pythonBin, [
       scriptPath,
       "--unit",
       session.unit,
