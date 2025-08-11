@@ -33,7 +33,7 @@ RUN if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
 COPY . .
 
 # Copy custom fonts into system fonts directory
-COPY fonts /usr/share/fonts/truetype/custom/
+COPY fonts /usr/share/fonts/truetype/
 
 # Update font cache and verify fonts installed
 RUN fc-cache -f -v && \
