@@ -1,51 +1,45 @@
-# --- Base image with Node.js 18 on Debian Bullseye ---
 FROM node:18-bullseye
 
-# Prevent apt from prompting
 ENV DEBIAN_FRONTEND=noninteractive
-
-# Working directory
 WORKDIR /app
 
-# --- Configure apt to retry downloads and increase timeout ---
-RUN echo 'Acquire::Retries "5"; Acquire::http::Timeout "120";' > /etc/apt/apt.conf.d/99retries
-
-# --- Install system dependencies ---
+# --- Update apt and install dependencies ---
 RUN apt-get update && \
-    apt-get install -y --fix-missing \
+    apt-get install -y --no-install-recommends \
         python3 \
         python3-pip \
-        libreoffice \
+        libreoffice-core \
         libreoffice-writer \
+        libreoffice-calc \
+        libreoffice-common \
         fonts-dejavu-core \
         fonts-noto-arabic \
-        libgl1 \
-    && rm -rf /var/lib/apt/lists/*
+        libgl1-mesa-glx \
+        libxrender1 \
+        libxext6 \
+        libsm6 \
+        libfontconfig1 \
+        wget \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# --- Install Calibri font (you must provide it in ./fonts) ---
+# --- Copy Calibri font (you must provide the TTFs in ./fonts) ---
 COPY fonts /usr/share/fonts/truetype/custom
 RUN fc-cache -f -v && \
     echo "✅ Installed fonts:" && \
-    fc-list | grep -Ei "calibri|noto" || (echo "❌ Fonts not found!" && exit 1)
+    fc-list | grep -Ei "calibri|noto"
 
-# --- Copy package.json & package-lock.json ---
+# --- Copy Node dependencies and install ---
 COPY package*.json ./
-
-# --- Install Node dependencies ---
 RUN npm ci --production
 
-# --- Copy Python dependencies ---
+# --- Install Python requirements if exist ---
 COPY requirements.txt ./
-RUN if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+RUN if [ -f requirements.txt ]; then pip3 install --no-cache-dir -r requirements.txt; fi
 
 # --- Copy all project files ---
 COPY . .
 
-# --- Environment variable for Python path ---
 ENV PY_BIN=/usr/bin/python3
-
-# --- Expose port (adjust if needed) ---
 EXPOSE 3000
 
-# --- Default command ---
 CMD ["node", "bot.js"]
