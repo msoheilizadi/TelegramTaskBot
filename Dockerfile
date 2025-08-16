@@ -21,11 +21,11 @@ RUN apt-get update && \
         wget \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# --- Copy Calibri font (you must provide the TTFs in ./fonts) ---
+# --- Copy custom fonts (Calibri + B Nazanin) ---
 COPY fonts /usr/share/fonts/truetype/custom
 RUN fc-cache -f -v && \
     echo "✅ Installed fonts:" && \
-    fc-list | grep -i calibri
+    fc-list | grep -Ei "calibri|b nazanin"
 
 # --- Copy Node dependencies and install ---
 COPY package*.json ./
