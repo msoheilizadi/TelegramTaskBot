@@ -18,24 +18,18 @@ RUN apt-get update && \
         libreoffice \
         libreoffice-writer \
         fonts-dejavu-core \
+        fonts-noto-arabic \
         libgl1 \
-    || (sleep 10 && apt-get update && apt-get install -y --fix-missing \
-        python3 python3-pip libreoffice libreoffice-writer fonts-dejavu-core libgl1) && \
-    rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
-# --- Install custom fonts (Tw Cen MT + Calibri) ---
+# --- Install Calibri font (you must provide it in ./fonts) ---
 COPY fonts /usr/share/fonts/truetype/custom
 RUN fc-cache -f -v && \
     echo "✅ Installed fonts:" && \
-    fc-list | grep -Ei "calibri|tw cen mt" || (echo "❌ Fonts not found!" && exit 1)
+    fc-list | grep -Ei "calibri|noto" || (echo "❌ Fonts not found!" && exit 1)
 
 # --- Copy package.json & package-lock.json ---
 COPY package*.json ./
-
-# --- Install Persian fonts ---
-RUN apt-get update && apt-get install -y fonts-noto-core fonts-noto-unhinted fonts-noto-cjk \
-    fonts-noto-extra fonts-noto-ui-extra fonts-noto-color-emoji \
-    fonts-noto-arabic || true
 
 # --- Install Node dependencies ---
 RUN npm ci --production

@@ -12,6 +12,16 @@ def to_persian_number(num):
     s = str(int(round(num)))
     return s.translate(str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹"))
 
+from openpyxl.styles import Font
+
+def set_all_cells_to_calibri(ws):
+    calibri_font = Font(name="Calibri", size=11)
+    for row in ws.iter_rows():
+        for cell in row:
+            if cell.value is not None:  # only apply to used cells
+                cell.font = calibri_font
+
+
 def create_payment_plan_excel(unit_number, discount, payment_method):
     discount = float(discount)
     if discount <= 1:
@@ -84,6 +94,7 @@ def create_payment_plan_excel(unit_number, discount, payment_method):
     payment_ws['B10'] = f"تخفیف {to_persian_number(discount_pct)} درصدی"
 
     output_excel = os.path.join(BASE_DIR, f'temp_payment_plan_{unit_number}.xlsx')
+    set_all_cells_to_calibri(payment_ws)
     payment_wb.save(output_excel)
     return output_excel, discount_pct, payment_method
 
