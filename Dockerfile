@@ -13,7 +13,6 @@ RUN apt-get update && \
         libreoffice-calc \
         libreoffice-common \
         fonts-dejavu-core \
-        fonts-noto-arabic \
         libgl1-mesa-glx \
         libxrender1 \
         libxext6 \
@@ -26,7 +25,7 @@ RUN apt-get update && \
 COPY fonts /usr/share/fonts/truetype/custom
 RUN fc-cache -f -v && \
     echo "✅ Installed fonts:" && \
-    fc-list | grep -Ei "calibri|noto"
+    fc-list | grep -i calibri
 
 # --- Copy Node dependencies and install ---
 COPY package*.json ./
