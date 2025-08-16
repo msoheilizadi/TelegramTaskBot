@@ -1,6 +1,7 @@
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const {sendLoggedMessage} = require("../utils/logger");
 
 function handlePaymentMessages(bot, msg, sessions, saveSessions) {
   const chatId = msg.chat.id;
@@ -13,7 +14,7 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
     session.unit = text;
     session.step = "ask_discount";
     saveSessions(sessions);
-    bot.sendMessage(chatId, "💸 درصد تخفیف را وارد کنید (مثلاً 10):");
+    sendLoggedMessage(chatId, "💸 درصد تخفیف را وارد کنید (مثلاً 10):");
     return true;
   }
 
@@ -21,7 +22,7 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
     session.discount = text;
     session.step = "ask_method";
     saveSessions(sessions);
-    bot.sendMessage(chatId, "💳 روش پرداخت را وارد کنید (1 یا 0.5):");
+    sendLoggedMessage(chatId, "💳 روش پرداخت را وارد کنید (1 یا 0.5):");
     return true;
   }
 
@@ -30,7 +31,7 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
     session.step = null;
     saveSessions(sessions);
 
-    bot.sendMessage(chatId, "⏳ در حال ساخت فایل PDF...");
+    sendLoggedMessage(chatId, "⏳ در حال ساخت فایل PDF...");
 
     const scriptPath = path.join(__dirname, "..", "PythonScripts", "main.py");
     console.log("Running python script:", scriptPath);
@@ -64,7 +65,12 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
     pyProcess.on("close", (code) => {
       if (code !== 0) {
         console.error("Python script error:", stderr);
-        bot.sendMessage(chatId, "❌ خطا در ایجاد فایل پرداخت.");
+
+        if (stderr.includes("Unit number") && stderr.includes("not found")) {
+          sendLoggedMessage(chatId, "❌ واحد موجود نمیباشد.");
+        } else {
+          sendLoggedMessage(chatId, "❌ خطا در ایجاد فایل پرداخت.");
+        }
         return;
       }
 
@@ -73,7 +79,7 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
 
       if (rawOutput.toLowerCase().startsWith("error")) {
         console.error("Python script reported error:", rawOutput);
-        bot.sendMessage(chatId, "❌ خطا در ایجاد فایل پرداخت: " + rawOutput);
+        sendLoggedMessage(chatId, "❌ خطا در ایجاد فایل پرداخت: " + rawOutput);
         return;
       }
 
@@ -82,7 +88,7 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
       console.log("File exists:", fs.existsSync(finalPdfPath));
 
       if (!fs.existsSync(finalPdfPath)) {
-        bot.sendMessage(chatId, "❌ فایل ساخته شده پیدا نشد.");
+        sendLoggedMessage(chatId, "❌ فایل ساخته شده پیدا نشد.");
         return;
       }
 
@@ -99,7 +105,7 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
         })
         .catch((err) => {
           console.error("Error sending document:", err);
-          bot.sendMessage(chatId, "❌ خطا در ارسال فایل PDF.");
+          sendLoggedMessage(chatId, "❌ خطا در ارسال فایل PDF.");
         });
     });
 

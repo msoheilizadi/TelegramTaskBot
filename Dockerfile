@@ -1,50 +1,52 @@
-# Use Node.js 18 with Debian Bullseye
+# --- Base image with Node.js 18 on Debian Bullseye ---
 FROM node:18-bullseye
 
-# Prevent apt from prompting for user input
+# Prevent apt from prompting
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Set working directory
+# Working directory
 WORKDIR /app
 
-# Install Python3, pip, LibreOffice, and basic dependencies
+# --- Configure apt to retry downloads and increase timeout ---
+RUN echo 'Acquire::Retries "5"; Acquire::http::Timeout "120";' > /etc/apt/apt.conf.d/99retries
+
+# --- Install system dependencies ---
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --fix-missing \
         python3 \
         python3-pip \
         libreoffice \
         libreoffice-writer \
         fonts-dejavu-core \
         libgl1 \
-        fontconfig \
-    && rm -rf /var/lib/apt/lists/*
+    || (sleep 10 && apt-get update && apt-get install -y --fix-missing \
+        python3 python3-pip libreoffice libreoffice-writer fonts-dejavu-core libgl1) && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy package.json and package-lock.json first (for caching)
-COPY package*.json ./
-
-# Install Node.js dependencies in production mode
-RUN npm ci --production
-
-# Copy requirements.txt if exists and install Python dependencies
-COPY requirements.txt ./ 
-RUN if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
-
-# Copy the rest of the project files
-COPY . .
-
-# Copy custom fonts into system fonts directory
-COPY fonts /usr/share/fonts/truetype/
-
-# Update font cache and verify fonts installed
+# --- Install custom fonts (Tw Cen MT + Calibri) ---
+COPY fonts /usr/share/fonts/truetype/custom
 RUN fc-cache -f -v && \
     echo "✅ Installed fonts:" && \
     fc-list | grep -Ei "calibri|tw cen mt" || (echo "❌ Fonts not found!" && exit 1)
 
-# Environment variable for Python path
+# --- Copy package.json & package-lock.json ---
+COPY package*.json ./
+
+# --- Install Node dependencies ---
+RUN npm ci --production
+
+# --- Copy Python dependencies ---
+COPY requirements.txt ./
+RUN if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+
+# --- Copy all project files ---
+COPY . .
+
+# --- Environment variable for Python path ---
 ENV PY_BIN=/usr/bin/python3
 
-# Expose app port
+# --- Expose port (adjust if needed) ---
 EXPOSE 3000
 
-# Start bot
+# --- Default command ---
 CMD ["node", "bot.js"]

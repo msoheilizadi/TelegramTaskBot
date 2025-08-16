@@ -9,7 +9,8 @@
         "2025/07/27": 0,
         "2025/08/09": 298,
         "2025/08/10": 480,
-        "2025/08/11": 417
+        "2025/08/11": 417,
+        "2025/08/12": 517
       },
       "tasks": [
         {
@@ -61,9 +62,14 @@
           "id": 56,
           "title": "Write the code for the telegram bot that will notice users they don't finish their day",
           "completed": false
+        },
+        {
+          "id": 57,
+          "title": "ساخت اکانت اینستاگرام aland و وصل کردن هر دو اکانت به واتساپشان",
+          "completed": true
         }
       ],
-      "dayStart": null,
+      "dayStart": "2025-08-16T07:16:29.910Z",
       "dayEnd": null,
       "attendance": {
         "2025-07-27": {
@@ -77,7 +83,10 @@
       "role": "employee",
       "telegramId": 92613413,
       "phone": "989126607187",
-      "workLog": {},
+      "workLog": {
+        "2025/08/12": 405,
+        "2025/08/13": 362
+      },
       "tasks": [
         {
           "id": 1,
@@ -93,13 +102,11 @@
       "role": "employee",
       "telegramId": 5772603645,
       "phone": "989120579287",
-      "workLog": {},
+      "workLog": {
+        "2025/08/12": 150,
+        "2025/08/13": 590
+      },
       "tasks": [
-        {
-          "id": 1,
-          "title": "شروع بروشور فارسی ۳۱۱",
-          "completed": false
-        },
         {
           "id": 2,
           "title": "Task 2",
@@ -108,10 +115,15 @@
         {
           "id": 11,
           "title": "عکس ویدیو ۳۱۱",
+          "completed": true
+        },
+        {
+          "id": 12,
+          "title": "باز کردن اکانت aland و تولید محتوا",
           "completed": false
         }
       ],
-      "dayStart": null,
+      "dayStart": "2025-08-16T07:57:36.196Z",
       "dayEnd": null
     },
     "negar": {
