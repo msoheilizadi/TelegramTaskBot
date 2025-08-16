@@ -122,7 +122,7 @@ def add_image_to_pdf_second_page(pdf_path, output_pdf_path, image_path):
 
     pw, ph = page.rect.width, page.rect.height
     scale = 1
-    pos_x_pct, pos_y_pct = 0.04, 0.4
+    pos_x_pct, pos_y_pct = 0.04, 0.6
     width_pct = 0.9
 
     target_w = pw * width_pct * scale
