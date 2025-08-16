@@ -32,6 +32,11 @@ RUN fc-cache -f -v && \
 # --- Copy package.json & package-lock.json ---
 COPY package*.json ./
 
+# --- Install Persian fonts ---
+RUN apt-get update && apt-get install -y fonts-noto-core fonts-noto-unhinted fonts-noto-cjk \
+    fonts-noto-extra fonts-noto-ui-extra fonts-noto-color-emoji \
+    fonts-noto-arabic || true
+
 # --- Install Node dependencies ---
 RUN npm ci --production
 
