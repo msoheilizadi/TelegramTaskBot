@@ -2,6 +2,7 @@ const { sendLoggedMessage } = require('../../utils/logger');
 
 module.exports = function addTask(bot, query, sessions, saveSessions) {
   console.log("hello im in addTask callback");
+  console.log();
   
   if (query.data !== 'add_task') return false;
 
