@@ -93,7 +93,7 @@ bot.on("callback_query", async (query) => {
     if (viewAttendance(bot, query, sessions, saveSessions)) return;
     console.log("hello i pass viewAttendance");
     
-    if (startDay(bot, query, sessions, saveSessions)) return;
+    if (await startDay(bot, query, sessions, saveSessions)) return;
     console.log("hello i pass startDay");
     if (
       await startRemoteDay(
