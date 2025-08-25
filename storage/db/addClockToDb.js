@@ -24,7 +24,7 @@ function timeDifference(start, end) {
 
 async function addStartDayTime(userId, todayDate, startTime) {
     try {
-        await db.query("INSERT INTO clocksbam (userid, date, start) VALUES ($1, $2, $3)", [userId, todayDate, startTime]);
+        await db.query("INSERT INTO clocksbam (userid, date, start, end, worktime) VALUES ($1, $2, $3, $4, $5)", [userId, todayDate, startTime, "00:00", "00:00"]);
     }
     catch (err) {
         console.error(`faild to insert clock for userid: ${userId} startTime ${startTime} date ${todayDate}`);
