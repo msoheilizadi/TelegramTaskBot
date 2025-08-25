@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { readTaskFromDb } = require("./storage/db/addTasksToDb");
 const path = "./data.json";
-const usersPath = "./user.json";
+const usersPath = "./users.json";
 
 function readData() {
   if (!fs.existsSync(path)) return { users: {} };
