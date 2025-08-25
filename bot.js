@@ -91,7 +91,10 @@ bot.on("callback_query", async (query) => {
     }
 
     if (viewAttendance(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass viewAttendance");
+    
     if (startDay(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass startDay");
     if (
       await startRemoteDay(
         bot,
@@ -104,13 +107,21 @@ bot.on("callback_query", async (query) => {
       )
     )
       return;
+    console.log("hello i pass startRemoteDay");
     if (viewTask(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass viewTask");
     if (assignMenu(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass assignMenu");
     if (assignUser(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass assignUser");
     if (completeTask(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass completeTask");
     if (editTask(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass editTask");
     if (addTask(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass addTask");
     if (await endDay(bot, query, sessions, saveSessions)) return;
+    console.log("hello i pass endDay");
     if (requestLeave(bot, query, sessions, saveSessions)) return;
     if (approveLeave(bot, query, sessions)) return;
     if (rejectLeave(bot, query, sessions)) return;
