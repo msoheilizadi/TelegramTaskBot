@@ -10,7 +10,10 @@
         "2025/08/09": 298,
         "2025/08/10": 480,
         "2025/08/11": 417,
-        "2025/08/12": 517
+        "2025/08/12": 517,
+        "2025/08/17": 443,
+        "2025/08/18": 480,
+        "2025/08/20": 523
       },
       "tasks": [
         {
@@ -44,11 +47,6 @@
           "completed": false
         },
         {
-          "id": 44,
-          "title": "Send WhatsApp campaign messages for doctors",
-          "completed": false
-        },
-        {
           "id": 46,
           "title": "Configure another database for more secure backups",
           "completed": false
@@ -62,14 +60,9 @@
           "id": 56,
           "title": "Write the code for the telegram bot that will notice users they don't finish their day",
           "completed": false
-        },
-        {
-          "id": 57,
-          "title": "ساخت اکانت اینستاگرام aland و وصل کردن هر دو اکانت به واتساپشان",
-          "completed": true
         }
       ],
-      "dayStart": "2025-08-16T07:16:29.910Z",
+      "dayStart": "2025-08-25T07:04:20.483Z",
       "dayEnd": null,
       "attendance": {
         "2025-07-27": {
@@ -85,12 +78,35 @@
       "phone": "989126607187",
       "workLog": {
         "2025/08/12": 405,
-        "2025/08/13": 362
+        "2025/08/13": 362,
+        "2025/08/19": 280,
+        "2025/08/20": 191,
+        "2025/08/21": 146
       },
       "tasks": [
         {
           "id": 1,
           "title": "استارت کردن ربات تلگرام",
+          "completed": false
+        },
+        {
+          "id": 2,
+          "title": "برگزاری جلسه فروش واحد ۹۰۱ و ۹۰۳\nپیگیری تماسها\nآپدیت فایل تماس ها",
+          "completed": false
+        },
+        {
+          "id": 3,
+          "title": "انجام کارهای تلفن همراه کاری\nواگذاری کارها\nآپدیت لیست تماسها",
+          "completed": false
+        },
+        {
+          "id": 4,
+          "title": "پیگیری تماس‌ها با افرادی که در همین هفته اطلاعات پروژه براشون ارسال شده بود",
+          "completed": false
+        },
+        {
+          "id": 5,
+          "title": "پیگیری تماس‌ها با افرادی که در همین هفته اطلاعات پروژه براشون ارسال شده بود",
           "completed": false
         }
       ],
@@ -104,7 +120,8 @@
       "phone": "989120579287",
       "workLog": {
         "2025/08/12": 150,
-        "2025/08/13": 590
+        "2025/08/13": 590,
+        "2025/08/16": 510
       },
       "tasks": [
         {
@@ -113,17 +130,12 @@
           "completed": false
         },
         {
-          "id": 11,
-          "title": "عکس ویدیو ۳۱۱",
-          "completed": true
-        },
-        {
-          "id": 12,
-          "title": "باز کردن اکانت aland و تولید محتوا",
+          "id": 15,
+          "title": "سه صفحه از بروشور فارسی",
           "completed": false
         }
       ],
-      "dayStart": "2025-08-16T07:57:36.196Z",
+      "dayStart": null,
       "dayEnd": null
     },
     "negar": {

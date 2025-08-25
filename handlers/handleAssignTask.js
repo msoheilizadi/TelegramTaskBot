@@ -1,5 +1,8 @@
 const { sendLoggedMessage } = require('../utils/logger');
 const storage = require('../storage');
+const { getUserIdByName } = require('../storage/sessionManager');
+const { addNewTask } = require('../storage/db/addTasksToDb');
+const { getTodayPersianDate } = require('../utils/dateHandling');
 
 module.exports = async function handleAssignTask(chatId, text, session, sessions, saveSessions) {
   const toUser = session.assignTo;
@@ -22,6 +25,10 @@ module.exports = async function handleAssignTask(chatId, text, session, sessions
   const newId = user.tasks.length > 0 ? user.tasks[user.tasks.length - 1].id + 1 : 1;
   user.tasks.push({ id: newId, title: text, completed: false });
   storage.updateUser(toUser, user);
+
+  const userId = getUserIdByName(toUser);
+  const persianDate = getTodayPersianDate();
+  await addNewTask(userId, text, persianDate);
 
   sendLoggedMessage(chatId, `✅ تسک "${text}" با موفقیت به ${toUser} اختصاص داده شد.`);
   if (user.telegramId) {

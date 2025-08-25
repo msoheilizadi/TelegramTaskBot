@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const sessionsFile = path.join(__dirname, '..', 'sessions.json');
+const usersFile = path.join(__dirname, '../users.json');
+
+const users = JSON.parse(fs.readFileSync(usersFile, 'utf-8'));
 
 function loadSessions() {
   try {
@@ -19,4 +22,9 @@ function saveSessions(sessionsObj) {
   fs.writeFileSync(sessionsFile, JSON.stringify(sessionsObj, null, 2), 'utf-8');
 }
 
-module.exports = { loadSessions, saveSessions };
+function getUserIdByName(name) {
+    const user = users.find(u => u.name.toLowerCase() === name.toLowerCase());
+    return user ? user.id : null;
+}
+
+module.exports = { loadSessions, saveSessions, getUserIdByName };

@@ -1,6 +1,9 @@
 const { sendLoggedMessage } = require('../utils/logger');
 const storage = require('../storage');
 const showEmployeeMenu = require('./menus/showEmployeeMenu');
+const { getTodayPersianDate } = require('../utils/dateHandling');
+const { addNewTask } = require('../storage/db/addTasksToDb');
+const { getUserIdByName } = require('../storage/sessionManager');
 
 module.exports = async function handleTaskAdd(chatId, text, session, sessions, saveSessions) {
   const username = session.username;
@@ -9,6 +12,11 @@ module.exports = async function handleTaskAdd(chatId, text, session, sessions, s
 
   user.tasks.push({ id: newId, title: text, completed: false });
   storage.updateUser(username, user);
+
+  const persianDate = getTodayPersianDate();
+  const userId = getUserIdByName(username);
+
+  await addNewTask(userId, text, persianDate);
 
   sendLoggedMessage(chatId, `✅ کار اضافه شد: "${text}"`);
   session.addingTask = false;

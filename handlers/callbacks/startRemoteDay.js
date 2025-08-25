@@ -1,9 +1,13 @@
 // handlers/authenticateRemote.js
-const moment = require("moment-timezone");
+const moment = require("moment-timezone");;
+require('moment-jalaali');
 const { sendLoggedMessage } = require("../../utils/logger");
 const storage = require("../../storage");
+const {addStartDayTime} = require('../../storage/db/addClockToDb');
+const { getUserIdByName } = require('../../storage/sessionManager');
+const { getTodayPersianDate } = require('../../utils/dateHandling');
 
-module.exports = function authenticateRemote(
+module.exports = async function authenticateRemote(
   bot,
   query,
   sessions,
@@ -35,6 +39,11 @@ module.exports = function authenticateRemote(
 
   const startTime = now.format("HH:mm");
   const endTime = now.clone().add(8, "hours").format("HH:mm");
+  const persianDate = getTodayPersianDate(); // e.g. "05-26"
+
+  const userid = getUserIdByName(username);
+
+  await addStartDayTime(userid, persianDate, startTime);
 
   sendLoggedMessage(
     chatId,
