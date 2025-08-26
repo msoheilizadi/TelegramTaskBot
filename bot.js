@@ -26,6 +26,8 @@ const startRemoteDay = require("./handlers/callbacks/startRemoteDay");
 const showEmployeeMenu = require("./handlers/menus/showEmployeeMenu");
 const handlePaymentFlow = require("./handlers/callbacks/create_payment");
 const updateTaskCmd = require("./handlers/commands/updateDb");
+const moment = require("moment-jalaali");
+require("moment-timezone");
 
 // Mock user database
 let sessions = loadSessions(); // Logged-in users { telegramId: { username, role } }

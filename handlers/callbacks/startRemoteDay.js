@@ -6,6 +6,7 @@ const storage = require("../../storage");
 const {addStartDayTime} = require('../../storage/db/addClockToDb');
 const { getUserIdByName } = require('../../storage/sessionManager');
 const { getTodayPersianDate } = require('../../utils/dateHandling');
+const showEmployeeMenu = require("../menus/showEmployeeMenu");
 
 module.exports = async function authenticateRemote(
   bot,
@@ -50,8 +51,7 @@ module.exports = async function authenticateRemote(
     `✅ روز کاری دورکاری از ساعت ${startTime} شروع شد 💪\n🕒 حدود ساعت ${endTime} می‌تونی شیفتتو ببندی و بزنی بیرون! 😎`
   );
 
-  // hand off to your menu (same as location)
-  onSuccess(bot, chatId, username);
+  showEmployeeMenu(chatId, username);
 
   // schedule the same 8‑hour reminder
   setTimeout(() => {

@@ -4,6 +4,8 @@ const showEmployeeMenu = require("../menus/showEmployeeMenu");
 const {addStartDayTime} = require('../../storage/db/addClockToDb');
 const { getUserIdByName } = require('../../storage/sessionManager');
 const { getTodayPersianDate } = require('../../utils/dateHandling');
+const moment = require("moment-jalaali");
+require("moment-timezone");
 
 module.exports = async function startDay(bot, query, sessions, saveSessions) {
   if (query.data !== "start_day") return false;
@@ -44,7 +46,7 @@ module.exports = async function startDay(bot, query, sessions, saveSessions) {
     `✅ موقعیت مکانی تأیید شد و روز کاری از ساعت ${startTime} شروع شد 💪\n🕒 حدود ساعت ${endTime} می‌تونی شیفتتو ببندی و بروی بیرون! 😎`
   );
 
-  onSuccess(bot, chatId, username); // continue to employee menu or anything else
+  showEmployeeMenu(chatId, username);
 
   // Reminder after 8 hours
   setTimeout(() => {
