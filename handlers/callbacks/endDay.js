@@ -57,12 +57,11 @@ module.exports = async function endDay(bot, query, sessions, saveSessions) {
   const minutes = Math.floor((durationMs % (60 * 60 * 1000)) / (60 * 1000));
   const durationMinutes = Math.floor(durationMs / (60 * 1000));
 
-  // Determine day of the week: 0 = Sunday, 4 = Thursday
   const dayOfWeek = now.day();
   const standardHours = dayOfWeek === 4 ? 4 : 8; // Thursday = 4h, other days = 8h
 
   const workedHoursDecimal = durationMinutes / 60; // total worked hours in decimal
-  const balanceDecimal = Math.max(0, workedHoursDecimal - standardHours); // balance can't be negative
+  const balanceDecimal = workedHoursDecimal - standardHours; // balance can't be negative
   const balanceHHMM = formatDecimalToHHMM(balanceDecimal); // convert to "HH:mm" for PG
 
   const jDate = now.clone().format("jYYYY/jMM/jDD"); // for human-readable report

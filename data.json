@@ -7,11 +7,6 @@
       "phone": "989015745264",
       "tasks": [
         {
-          "id": 6,
-          "title": "Refactor WhatsApp Bot Code",
-          "completed": false
-        },
-        {
           "id": 7,
           "title": "Make a AI interegated bot in telegram for auto answering texts\n(write to do's for this project)",
           "completed": false
@@ -32,16 +27,6 @@
           "completed": false
         },
         {
-          "id": 43,
-          "title": "Upload WhatsApp code on github (configure the code and secure it for public repo)",
-          "completed": false
-        },
-        {
-          "id": 46,
-          "title": "Configure another database for more secure backups",
-          "completed": false
-        },
-        {
           "id": 55,
           "title": "Write user levels for accessing the excel generating bot",
           "completed": false
@@ -50,9 +35,29 @@
           "id": 56,
           "title": "Write the code for the telegram bot that will notice users they don't finish their day",
           "completed": false
+        },
+        {
+          "id": 57,
+          "title": "۱- برسی ایمیل های شرکت \n۲- واتس اپ A Land \n۳- واتس اپ Boulevard 311\n۴- ارسال پیام اولیه به لیست مالکین نیایش Boulevard 311\n۵- ارسال پیام به لیست متفرقه Boulevard 311 \n۶-ارسال پیام  A Land به لیست پزشکان",
+          "completed": false
+        },
+        {
+          "id": 58,
+          "title": "آقا سهیل ، لطفاً امکانی اضافه کنید که من بتوانم در هر زمان، تعداد ساعات کاری و مجموع حضور هر کارمند را تا همان لحظه در ماه جاری مشاهده کنم.",
+          "completed": false
+        },
+        {
+          "id": 59,
+          "title": "واحدهایی که در این لیست هست رو به لیست قبلی اضافه کنید",
+          "completed": false
+        },
+        {
+          "id": 60,
+          "title": "واحد ۱۳۰۶ رو از لیست موجودی حذف کنید",
+          "completed": false
         }
       ],
-      "dayStart": "2025-08-26T08:45:00.000Z",
+      "dayStart": "2025-09-07T07:16:57.529Z",
       "dayEnd": null
     },
     "saina": {
@@ -64,6 +69,11 @@
         {
           "id": 4,
           "title": "پیگیری تماس‌ها با افرادی که در همین هفته اطلاعات پروژه براشون ارسال شده بود",
+          "completed": false
+        },
+        {
+          "id": 5,
+          "title": "پیگیری تماس ها با دکتر مهرآوران، فخاریان، دلدار کاشانی.\nهماهنگی با دکتر دلدار کاشانی برای جلسه حضوری.\nارسال مدارک پروژه برای آقای محسن کیایی.\nهماهنگی با آقای سهیل برای تعریف سیستم دسترسی روزانه به لیست پزشکان ۱۵۰۰ نفری.\nهماهنگی با خانم نگار برای ایجاد گروهی ۲ نفره از آپدیت روزانه کارها.\nپیگیری‌های بعدی تماس‌های امروز خانم نگار به من محول شد تا در صورت درخواست مشتری فایل مربوطه ارسال شود.",
           "completed": false
         }
       ],
@@ -80,6 +90,16 @@
           "id": 15,
           "title": "سه صفحه از بروشور فارسی",
           "completed": false
+        },
+        {
+          "id": 16,
+          "title": "۱- ویرایش بروشور \n۲- اینستاگرام، تغییر رنگ   به رنگ سازمانی \n۳- محتوا جدید برای boulevard 311 در اینستاگرام",
+          "completed": false
+        },
+        {
+          "id": 17,
+          "title": "بح سینه بسیار کوچک است \n\nحدود ۳۰٪ بزرگ‌تر شود",
+          "completed": false
         }
       ],
       "dayStart": null,
@@ -94,11 +114,31 @@
       "tasks": [
         {
           "id": 1,
-          "title": "Task 1",
+          "title": "تماس و پیگیری مجدد کیس های تمایل به خرید",
+          "completed": false
+        },
+        {
+          "id": 2,
+          "title": "پیگیری مجدد پزشکان بیمارستان نیکان",
+          "completed": false
+        },
+        {
+          "id": 3,
+          "title": "پیگیری کامل واتساپ بلوار ۳۱۱ و تماس مجدد با تمام کسانی که اطلاعات پروژه برایشان ارسال شد و فایل اکسل پیگیری برای شما ارسال شد/پرزنت پروژه برای آقایان فیضی و عزیزی",
+          "completed": false
+        },
+        {
+          "id": 4,
+          "title": "تماس با تمام علاقه مندان به پروژه ۳۱۱ _نیایش و ارسال اکسل ۱۳ شهریور برای اقای محمدی",
+          "completed": false
+        },
+        {
+          "id": 5,
+          "title": "تماس با لیست جدید علاقمندان به پروژه بلوار ۳۱۱/ پرزنت برای اقای مددالهی و نجفی",
           "completed": false
         }
       ],
-      "dayStart": null,
+      "dayStart": "2025-09-07T09:14:09.313Z",
       "dayEnd": null
     },
     "mohammadi": {

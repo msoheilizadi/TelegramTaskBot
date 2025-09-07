@@ -2,14 +2,15 @@
   "92613413": {
     "phone": "989126607187",
     "username": "saina",
-    "role": "employee",
-    "addingTask": false
+    "role": "employee"
   },
   "105974471": {
-    "step": null,
-    "unit": "630",
-    "discount": "20",
-    "method": "0.5"
+    "phone": "436767046223",
+    "username": "mohammadi",
+    "step": "main",
+    "role": "manager",
+    "assignTo": null,
+    "addingForOther": false
   },
   "442510228": {
     "phone": "989129581795",
@@ -20,7 +21,6 @@
   "668058250": {
     "phone": "989015745264",
     "username": "soheil",
-    "step": "main",
     "role": "employee"
   },
   "5772603645": {

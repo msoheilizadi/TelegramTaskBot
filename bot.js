@@ -94,7 +94,7 @@ bot.on("callback_query", async (query) => {
 
     if (viewAttendance(bot, query, sessions, saveSessions)) return;
     console.log("hello i pass viewAttendance");
-    
+
     if (await startDay(bot, query, sessions, saveSessions)) return;
     console.log("hello i pass startDay");
     if (
@@ -158,7 +158,7 @@ cron.schedule("0 0 * * *", () => {
     const user = data.users[username];
 
     if (user.role === "employee") {
-      if (dayOfWeek === 5) {
+      if (dayOfWeek === 5 || dayOfWeek == 4) {
         console.log(`📌 ${username} skipped (Friday).`);
         continue;
       }
@@ -217,6 +217,11 @@ cron.schedule(
     console.log("⏰ 11 AM check: users who didn’t start their day...");
 
     const data = storage.readData();
+
+      if (dayOfWeek === 5 || dayOfWeek == 4) {
+        console.log(`📌 ${username} skipped (Friday).`);
+        return;
+      }
 
     for (const username in data.users) {
       const user = data.users[username];
