@@ -6,7 +6,7 @@ function handlePaymentFlow(bot, query, sessions, saveSessions) {
   const data = query.data;
 
   if (data === "create_payment") {
-    sessions[chatId] = { step: "ask_unit" };
+    sessions[chatId].step = "ask_unit";
     saveSessions(sessions);
     bot.sendMessage(chatId, "📦 شماره واحد را وارد کنید:");
     return true;

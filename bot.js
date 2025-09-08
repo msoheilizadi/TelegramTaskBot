@@ -22,6 +22,7 @@ const approveLeave = require("./handlers/callbacks/approveLeave");
 const rejectLeave = require("./handlers/callbacks/rejectLeave");
 const viewUserTasks = require("./handlers/viewUserTask");
 // const authenticateLocation = require("./locationAuth");
+const handleManagerQueries = require("./HRFeatures/handleManagerReportQueries");
 const startRemoteDay = require("./handlers/callbacks/startRemoteDay");
 const showEmployeeMenu = require("./handlers/menus/showEmployeeMenu");
 const handlePaymentFlow = require("./handlers/callbacks/create_payment");
@@ -93,10 +94,8 @@ bot.on("callback_query", async (query) => {
     }
 
     if (viewAttendance(bot, query, sessions, saveSessions)) return;
-    console.log("hello i pass viewAttendance");
 
     if (await startDay(bot, query, sessions, saveSessions)) return;
-    console.log("hello i pass startDay");
     if (
       await startRemoteDay(
         bot,
@@ -121,6 +120,7 @@ bot.on("callback_query", async (query) => {
     if (rejectLeave(bot, query, sessions)) return;
     if (viewUserTasks(bot, query, sessions, saveSessions)) return;
     if (handlePaymentFlow(bot, query, sessions, saveSessions)) return;
+    if (handleManagerQueries(bot, query, sessions, saveSessions, sendLoggedMessage)) return;
 
     // fallback
     sendLoggedMessage(chatId, "❓ دستور نامشخص.");

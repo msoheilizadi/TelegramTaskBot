@@ -27,4 +27,15 @@ function getUserIdByName(name) {
     return user ? user.id : null;
 }
 
-module.exports = { loadSessions, saveSessions, getUserIdByName };
+function getAllEmployees() {
+  try {
+    const filePath = path.join(__dirname, "..", "users.json");
+    const raw = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error("❌ Error reading users.json:", err);
+    return [];
+  }
+}
+
+module.exports = { loadSessions, saveSessions, getUserIdByName , getAllEmployees };

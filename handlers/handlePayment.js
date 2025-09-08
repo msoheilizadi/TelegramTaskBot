@@ -1,7 +1,8 @@
 const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
-const {sendLoggedMessage} = require("../utils/logger");
+const { sendLoggedMessage } = require("../utils/logger");
+const showEmployeeMenu = require("./menus/showEmployeeMenu");
 
 function handlePaymentMessages(bot, msg, sessions, saveSessions) {
   const chatId = msg.chat.id;
@@ -28,7 +29,6 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
 
   if (session.step === "ask_method") {
     session.method = text;
-    session.step = null;
     saveSessions(sessions);
 
     sendLoggedMessage(chatId, "⏳ در حال ساخت فایل PDF...");
@@ -63,32 +63,36 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
     });
 
     pyProcess.on("close", (code) => {
+      // Always clear temporary payment fields
+      session.unit = null;
+      session.discount = null;
+      session.method = null;
+
       if (code !== 0) {
         console.error("Python script error:", stderr);
-
-        if (stderr.includes("Unit number") && stderr.includes("not found")) {
-          sendLoggedMessage(chatId, "❌ واحد موجود نمیباشد.");
-        } else {
-          sendLoggedMessage(chatId, "❌ خطا در ایجاد فایل پرداخت.");
-        }
+        sendLoggedMessage(
+          chatId,
+          stderr.includes("Unit number") && stderr.includes("not found")
+            ? "❌ واحد موجود نمیباشد."
+            : "❌ خطا در ایجاد فایل پرداخت."
+        );
+        // Set step back to main so user can continue
+        session.step = "main";
+        saveSessions(sessions);
+        if (session.username) showEmployeeMenu(chatId, session.username);
         return;
       }
 
       const rawOutputLines = stdoutData.trim().split("\n");
       const rawOutput = rawOutputLines[rawOutputLines.length - 1].trim();
-
-      if (rawOutput.toLowerCase().startsWith("error")) {
-        console.error("Python script reported error:", rawOutput);
-        sendLoggedMessage(chatId, "❌ خطا در ایجاد فایل پرداخت: " + rawOutput);
-        return;
-      }
-
       const finalPdfPath = path.resolve(rawOutput);
-      console.log("Sending file:", finalPdfPath);
-      console.log("File exists:", fs.existsSync(finalPdfPath));
 
       if (!fs.existsSync(finalPdfPath)) {
         sendLoggedMessage(chatId, "❌ فایل ساخته شده پیدا نشد.");
+        // Set step to main to continue
+        session.step = "main";
+        saveSessions(sessions);
+        if (session.username) showEmployeeMenu(chatId, session.username);
         return;
       }
 
@@ -97,6 +101,14 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
         .sendDocument(chatId, fileStream)
         .then(() => {
           console.log("File sent successfully.");
+          sendLoggedMessage(chatId, "✅ فایل پرداخت آماده شد و ارسال شد.");
+
+          // Set step to main after success
+          session.step = "main";
+          saveSessions(sessions);
+
+          if (session.username) showEmployeeMenu(chatId, session.username);
+
           try {
             fs.unlinkSync(finalPdfPath);
           } catch (e) {
@@ -106,6 +118,11 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
         .catch((err) => {
           console.error("Error sending document:", err);
           sendLoggedMessage(chatId, "❌ خطا در ارسال فایل PDF.");
+
+          // Still set step to main
+          session.step = "main";
+          saveSessions(sessions);
+          if (session.username) showEmployeeMenu(chatId, session.username);
         });
     });
 

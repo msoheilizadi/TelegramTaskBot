@@ -54,6 +54,7 @@ module.exports = async function handleLoginSteps(chatId, text, session, sessions
           [{ text: "📋 وضعیت حضور", callback_data: "view_attendance" }],
           [{ text: "🗂 دیدن تسک‌های کارمندان", callback_data: "view_tasks" }],
           [{ text: "📄 ایجاد پلن پرداخت", callback_data: "create_payment" }],
+          [{ text: "مشاهده گزارش کارمندان", callback_data: "view_employees" }]
         ]
       }
     });
