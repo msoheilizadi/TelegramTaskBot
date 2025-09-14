@@ -5,19 +5,30 @@
     "role": "employee"
   },
   "105974471": {
-    "step": null,
-    "unit": "628",
-    "discount": "15",
-    "method": "1"
+    "phone": "436767046223",
+    "username": "mohammadi",
+    "step": "main",
+    "role": "manager",
+    "unit": null,
+    "discount": null,
+    "method": null
   },
   "442510228": {
-    "step": null,
-    "unit": "809",
-    "discount": "20",
-    "method": "1"
+    "phone": "989129581795",
+    "username": "negar",
+    "step": "main",
+    "role": "employee",
+    "addingTask": false
   },
   "668058250": {
-    "step": "await_contact"
+    "phone": "989015745264",
+    "username": "soheil",
+    "role": "employee",
+    "step": "main",
+    "unit": null,
+    "discount": null,
+    "method": null,
+    "addingTask": false
   },
   "5772603645": {
     "phone": "989120579287",

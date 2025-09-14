@@ -120,7 +120,16 @@ bot.on("callback_query", async (query) => {
     if (rejectLeave(bot, query, sessions)) return;
     if (viewUserTasks(bot, query, sessions, saveSessions)) return;
     if (handlePaymentFlow(bot, query, sessions, saveSessions)) return;
-    if (handleManagerQueries(bot, query, sessions, saveSessions, sendLoggedMessage)) return;
+    if (
+      handleManagerQueries(
+        bot,
+        query,
+        sessions,
+        saveSessions,
+        sendLoggedMessage
+      )
+    )
+      return;
 
     // fallback
     sendLoggedMessage(chatId, "❓ دستور نامشخص.");
@@ -217,14 +226,17 @@ cron.schedule(
     console.log("⏰ 11 AM check: users who didn’t start their day...");
 
     const data = storage.readData();
-
-      if (dayOfWeek === 5 || dayOfWeek == 4) {
-        console.log(`📌 ${username} skipped (Friday).`);
-        return;
-      }
+    const now = moment().tz("Asia/Tehran");
+    const dayOfWeek = now.day();
 
     for (const username in data.users) {
       const user = data.users[username];
+
+      if (dayOfWeek === 5 || dayOfWeek === 4) {
+        console.log(`📌 ${username} skipped (Friday).`);
+        continue;
+      }
+
       if (user.role === "employee" && !user.dayStart && user.telegramId) {
         sendLoggedMessage(
           user.telegramId,
