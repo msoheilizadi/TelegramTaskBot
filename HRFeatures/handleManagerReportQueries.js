@@ -30,7 +30,7 @@ async function handleManagerQueries(bot, query, sessions, saveSessions, sendLogg
     const employees = getAllEmployees();
 
     if (!employees.length) {
-      bot.sendMessage(chatId, "❌ هیچ کارمندی در users.json یافت نشد.");
+      sendLoggedMessage(chatId, "❌ هیچ کارمندی در users.json یافت نشد.");
       return true;
     }
 
@@ -41,7 +41,7 @@ async function handleManagerQueries(bot, query, sessions, saveSessions, sendLogg
       },
     ]);
 
-    bot.sendMessage(chatId, "👥 لطفاً یک کارمند را انتخاب کنید:", {
+    sendLoggedMessage(chatId, "👥 لطفاً یک کارمند را انتخاب کنید:", {
       reply_markup: { inline_keyboard: keyboard },
     });
     return true;
@@ -57,7 +57,7 @@ async function handleManagerQueries(bot, query, sessions, saveSessions, sendLogg
     const records = await getAttendanceByUser(userid, month);
 
     if (!records.length) {
-      bot.sendMessage(chatId, `❌ هیچ گزارشی برای ${employee?.name || userid} یافت نشد.`);
+      sendLoggedMessage(chatId, `❌ هیچ گزارشی برای ${employee?.name || userid} یافت نشد.`);
       return true;
     }
 
@@ -70,7 +70,7 @@ async function handleManagerQueries(bot, query, sessions, saveSessions, sendLogg
     const total = sumWorktimes(records);
     text += `\n🕒 مجموع ساعات کاری: ${total}`;
 
-    bot.sendMessage(chatId, text);
+    sendLoggedMessage(chatId, text);
     return true;
   }
 

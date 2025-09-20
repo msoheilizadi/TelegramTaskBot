@@ -42,7 +42,7 @@
           "completed": false
         }
       ],
-      "dayStart": "2025-09-14T06:52:00.000Z",
+      "dayStart": "2025-09-20T07:15:36.587Z",
       "dayEnd": null
     },
     "saina": {
@@ -141,6 +141,12 @@
       "role": "manager",
       "telegramId": 105974471,
       "phone": "436767046223"
+    },
+    "ghamari": {
+      "password": "admin",
+      "role": "manager",
+      "telegramId": 7744847866,
+      "phone": "41792797979"
     }
   }
 }

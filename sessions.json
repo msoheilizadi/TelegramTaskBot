@@ -16,19 +16,16 @@
   "442510228": {
     "phone": "989129581795",
     "username": "negar",
-    "step": "main",
-    "role": "employee",
-    "addingTask": false
-  },
-  "668058250": {
-    "phone": "989015745264",
-    "username": "soheil",
     "role": "employee",
     "step": "main",
     "unit": null,
     "discount": null,
-    "method": null,
-    "addingTask": false
+    "method": null
+  },
+  "668058250": {
+    "phone": "989015745264",
+    "username": "soheil",
+    "role": "employee"
   },
   "5772603645": {
     "phone": "989120579287",
@@ -39,5 +36,11 @@
   },
   "7228050327": {
     "step": "await_contact"
+  },
+  "7744847866": {
+    "phone": "41792797979",
+    "username": "ghamari",
+    "step": "main",
+    "role": "manager"
   }
 }
