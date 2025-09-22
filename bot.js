@@ -8,6 +8,7 @@ const handleMessage = require("./handlers/messageHandler");
 const startCmd = require("./handlers/commands/start");
 const notifyCmd = require("./handlers/commands/notify");
 const downloadLogsCmd = require("./handlers/commands/downloadLogs");
+const monthlyReportCmd = require("./handlers/commands/monthlyReport");
 const viewAttendance = require("./handlers/callbacks/viewAttendance");
 const startDay = require("./handlers/callbacks/startDay");
 const viewTask = require("./handlers/callbacks/viewTask");
@@ -47,6 +48,10 @@ bot.onText(downloadLogsCmd.pattern, (msg) => {
 
 bot.onText(updateTaskCmd.pattern, (msg) => {
   updateTaskCmd.handler(bot, msg, sessions, saveSessions);
+});
+
+bot.onText(monthlyReportCmd.pattern, (msg) => {
+  monthlyReportCmd.handler(bot, msg, sessions, saveSessions);
 });
 
 bot.on("contact", (msg) => {

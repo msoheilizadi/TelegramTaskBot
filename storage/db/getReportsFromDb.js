@@ -18,4 +18,21 @@ async function getAttendanceByUser(userid, month) {
   }
 }
 
-module.exports = { getAttendanceByUser };
+async function getDoneTasksByUser(userid, month) {
+  try {
+    // Assuming donetime is in format MM-DD
+    const res = await db.query(
+      `SELECT * FROM tasksbam
+       WHERE userid = $1 
+         AND done = true 
+         AND donetime LIKE $2`,
+      [userid, `${month}-%`]
+    );
+    return res.rows;
+  } catch (err) {
+    console.error(`Error fetching done tasks for ${userid}`, err);
+    return [];
+  }
+}
+
+module.exports = { getAttendanceByUser, getDoneTasksByUser };

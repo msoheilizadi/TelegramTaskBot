@@ -3,6 +3,9 @@
     "start": "node bot.js"
   },
   "dependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
+    "arabic-persian-reshaper": "^1.0.1",
+    "bidi-js": "^1.0.3",
     "dayjs": "^1.11.13",
     "dotenv": "^17.2.0",
     "exceljs": "^4.4.0",
@@ -12,6 +15,9 @@
     "moment-timezone": "^0.6.0",
     "node-cron": "^4.2.0",
     "node-telegram-bot-api": "^0.66.0",
+    "pdf-lib": "^1.17.1",
+    "pdfkit": "^0.17.2",
+    "pdfmake": "^0.2.20",
     "pg": "^8.16.3",
     "xlsx": "^0.18.5"
   }

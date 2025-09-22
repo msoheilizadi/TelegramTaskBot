@@ -40,54 +40,34 @@
           "id": 61,
           "title": "عوض کردم رنگ خانم نگار توی اکسل سی ار ام",
           "completed": false
-        }
-      ],
-      "dayStart": "2025-09-20T07:15:36.587Z",
-      "dayEnd": null
-    },
-    "saina": {
-      "password": "12345",
-      "role": "employee",
-      "telegramId": 92613413,
-      "phone": "989126607187",
-      "tasks": [
-        {
-          "id": 4,
-          "title": "پیگیری تماس‌ها با افرادی که در همین هفته اطلاعات پروژه براشون ارسال شده بود",
-          "completed": false
         },
         {
-          "id": 5,
-          "title": "پیگیری تماس ها با دکتر مهرآوران، فخاریان، دلدار کاشانی.\nهماهنگی با دکتر دلدار کاشانی برای جلسه حضوری.\nارسال مدارک پروژه برای آقای محسن کیایی.\nهماهنگی با آقای سهیل برای تعریف سیستم دسترسی روزانه به لیست پزشکان ۱۵۰۰ نفری.\nهماهنگی با خانم نگار برای ایجاد گروهی ۲ نفره از آپدیت روزانه کارها.\nپیگیری‌های بعدی تماس‌های امروز خانم نگار به من محول شد تا در صورت درخواست مشتری فایل مربوطه ارسال شود.",
-          "completed": false
-        }
-      ],
-      "dayStart": null,
-      "dayEnd": null
-    },
-    "elahe": {
-      "password": "elahe62198610",
-      "role": "employee",
-      "telegramId": 5772603645,
-      "phone": "989120579287",
-      "tasks": [
-        {
-          "id": 15,
-          "title": "سه صفحه از بروشور فارسی",
-          "completed": false
+          "id": 62,
+          "title": "Cleared duplicated data from Niaiesh Mall database table",
+          "completed": true
         },
         {
-          "id": 16,
-          "title": "۱- ویرایش بروشور \n۲- اینستاگرام، تغییر رنگ   به رنگ سازمانی \n۳- محتوا جدید برای boulevard 311 در اینستاگرام",
-          "completed": false
+          "id": 63,
+          "title": "Fixed bugs related to message delivery issues in the whatsapp bot",
+          "completed": true
         },
         {
-          "id": 17,
-          "title": "بح سینه بسیار کوچک است \n\nحدود ۳۰٪ بزرگ‌تر شود",
-          "completed": false
+          "id": 64,
+          "title": "Reconnected the bot with Green API and configured API bot webhooks via ngrok and..",
+          "completed": true
+        },
+        {
+          "id": 65,
+          "title": "Updated plugins on a-land.ir website",
+          "completed": true
+        },
+        {
+          "id": 66,
+          "title": "Start and finished the Niaiesh Mall messaging campaign",
+          "completed": true
         }
       ],
-      "dayStart": null,
+      "dayStart": "2025-09-22T09:03:43.170Z",
       "dayEnd": null
     },
     "negar": {
@@ -133,7 +113,7 @@
           "completed": false
         }
       ],
-      "dayStart": null,
+      "dayStart": "2025-09-22T09:46:49.795Z",
       "dayEnd": null
     },
     "mohammadi": {

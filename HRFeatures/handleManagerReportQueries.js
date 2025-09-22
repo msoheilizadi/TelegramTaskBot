@@ -78,3 +78,4 @@ async function handleManagerQueries(bot, query, sessions, saveSessions, sendLogg
 }
 
 module.exports = handleManagerQueries;
+module.exports.sumWorktimes = sumWorktimes;
