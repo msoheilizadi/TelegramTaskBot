@@ -2,7 +2,7 @@ const { sendLoggedMessage } = require('../../utils/logger');
 const data = require('../../data.json');
 
 module.exports = {
-  pattern: /\/notify/,
+  pattern: /^\/notify$/,
   handler: (bot, msg, sessions, saveSessions) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
