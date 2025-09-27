@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { sendLoggedMessage } = require("../utils/logger");
 const showEmployeeMenu = require("./menus/showEmployeeMenu");
+const { getAedRate } = require("../Api/getAedRate");
 
 function handlePaymentMessages(bot, msg, sessions, saveSessions) {
   const chatId = msg.chat.id;
@@ -101,33 +102,41 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
         return;
       }
 
-      // Ensure discount & method are numbers
       const discountPct = parseFloat(session.discount);
       const methodPct = parseFloat(session.method); // 1 or 0.5
 
-      // Calculations
+      // Calculations (all rounded)
       const totalPriceBeforeDiscount = Math.round(
         aedPrice / (1 - discountPct / 100)
       );
       const discountAmount = totalPriceBeforeDiscount - aedPrice;
       const downPaymentPercent = methodPct === 0.5 ? 0.3 : 0.2;
-      const downPayment = +(aedPrice * downPaymentPercent).toFixed(2);
+      const downPayment = Math.round(aedPrice * downPaymentPercent);
 
-      // Example monthly calculation
-      const remaining = aedPrice - downPayment;
-      const monthlyPayment = +(remaining * methodPct).toFixed(2); // adjust formula if needed
+      const monthlyPayment = Math.round(aedPrice * (methodPct / 100));
 
-      // Summary text
+      const rate = getAedRate(); // AED to IRR
+      const totalPriceBeforeDiscountToman = Math.round(
+        totalPriceBeforeDiscount * rate
+      );
+      const aedPriceToman = Math.round(aedPrice * rate);
+      const downPaymentToman = Math.round(downPayment * rate);
+      const monthlyPaymentToman = Math.round(monthlyPayment * rate);
+      const discountAmountToman = Math.round(discountAmount * rate);
+
+      // Summary text with emojis
       const summaryText = `
-واحد ${session.unit}
-تخفیف ${discountPct}
-پرداختی ${methodPct} درصد
+🏢 واحد: ${session.unit}
+💸 تخفیف: ${discountPct}%
+💳 روش پرداخت: ${methodPct * 100}%
 
-مبلغ کل به درهم: ${totalPriceBeforeDiscount}
-مبلغ کل به درهم بعد از تخفیف: ${aedPrice}
-پیش پرداخت اولیه ${downPaymentPercent * 100}%: ${downPayment}
-مبلغ پرداختی ماهانه: ${monthlyPayment}
-میزان تخفیف اعمال شده: ${discountAmount}
+💰 مبلغ کل به درهم: ${totalPriceBeforeDiscount} AED (~${totalPriceBeforeDiscountToman} تومان)
+💵 مبلغ کل بعد از تخفیف: ${aedPrice} AED (~${aedPriceToman} تومان)
+🪙 پیش پرداخت اولیه (${
+        downPaymentPercent * 100
+      }%): ${downPayment} AED (~${downPaymentToman} تومان)
+📆 مبلغ پرداختی ماهانه: ${monthlyPayment} AED (~${monthlyPaymentToman} تومان)
+🎁 میزان تخفیف اعمال شده: ${discountAmount} AED (~${discountAmountToman} تومان)
 `.trim();
 
       // Send PDF and summary

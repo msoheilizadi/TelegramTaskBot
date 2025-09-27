@@ -30,6 +30,7 @@ const handlePaymentFlow = require("./handlers/callbacks/create_payment");
 const updateTaskCmd = require("./handlers/commands/updateDb");
 const moment = require("moment-jalaali");
 require("moment-timezone");
+const { updateAedRate } = require("./Api/getAedRate");
 
 // Mock user database
 let sessions = loadSessions(); // Logged-in users { telegramId: { username, role } }
@@ -279,4 +280,15 @@ cron.schedule(
     }
   },
   { timezone: "Asia/Tehran" }
+);
+
+cron.schedule(
+  "0 10,16 * * *", // minute 0, hours 10 and 16, every day
+  () => {
+    console.log("🌐 Updating AED rate...");
+    updateAedRate();
+  },
+  {
+    timezone: "Asia/Tehran",
+  }
 );
