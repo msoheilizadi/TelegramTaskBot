@@ -20,17 +20,31 @@ async function getAttendanceByUser(userid, month) {
 
 async function getDoneTasksByUser(userid, month) {
   try {
-    // Assuming donetime is in format MM-DD
+    // Fetch all done tasks first
     const res = await db.query(
       `SELECT * FROM tasksbam
-       WHERE userid = $1 
-         AND done = true 
+       WHERE userid = $1
+         AND done = true
          AND donetime LIKE $2`,
       [userid, `${month}-%`]
     );
-    return res.rows;
+
+    const tasks = res.rows;
+
+    if (tasks.length > 0) {
+      // Delete the same tasks
+      await db.query(
+        `DELETE FROM tasksbam
+         WHERE userid = $1
+           AND done = true
+           AND donetime LIKE $2`,
+        [userid, `${month}-%`]
+      );
+    }
+
+    return tasks;
   } catch (err) {
-    console.error(`Error fetching done tasks for ${userid}`, err);
+    console.error(`Error fetching and deleting done tasks for ${userid}`, err);
     return [];
   }
 }

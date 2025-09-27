@@ -6,7 +6,7 @@ const showEmployeeMenu = require("./menus/showEmployeeMenu");
 const { getAedRate } = require("../Api/getAedRate");
 
 function formatNumber(x) {
-  return x.toLocaleString("fa-IR"); // Persian-style commas
+  return x.toLocaleString("en-US");
 }
 
 function handlePaymentMessages(bot, msg, sessions, saveSessions) {

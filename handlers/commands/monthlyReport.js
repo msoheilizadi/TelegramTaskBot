@@ -88,12 +88,12 @@ module.exports = {
       await sendLoggedMessage(chatId, text);
 
       // send also to all managers
-      // const managers = employees.filter((u) => u.role === "manager");
-      // for (const m of managers) {
-      //   if (m.telegramId) {
-      //     await sendLoggedMessage(m.telegramId, text);
-      //   }
-      // }
+      const managers = employees.filter((u) => u.role === "manager");
+      for (const m of managers) {
+        if (m.telegramId) {
+          await sendLoggedMessage(m.telegramId, text);
+        }
+      }
 
       const tasks = await getDoneTasksByUser(emp.id, month);
 
@@ -124,11 +124,11 @@ module.exports = {
         await bot.sendDocument(chatId, pdfPath);
 
         // send PDF also to managers
-        // for (const m of managers) {
-        //   if (m.telegramId) {
-        //     await bot.sendDocument(m.telegramId, pdfPath);
-        //   }
-        // }
+        for (const m of managers) {
+          if (m.telegramId) {
+            await bot.sendDocument(m.telegramId, pdfPath);
+          }
+        }
       } else {
         await sendLoggedMessage(
           chatId,
