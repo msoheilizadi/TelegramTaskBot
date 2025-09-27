@@ -96,7 +96,6 @@ module.exports = {
       // }
 
       const tasks = await getDoneTasksByUser(emp.id, month);
-      console.log(tasks);
 
       if (tasks.length) {
         // build a single report object (PDF generator expects report.records and report.tasks)

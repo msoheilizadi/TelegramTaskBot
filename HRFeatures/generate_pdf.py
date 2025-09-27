@@ -22,6 +22,22 @@ def generate_pdf(employee_reports, month, output_path):
     pdfmetrics.registerFont(TTFont("PersianFont", font_path))
     style = ParagraphStyle(name="Persian", fontName="PersianFont", fontSize=12, alignment=2)  # alignment=2 -> right
 
+    # Define two styles: normal Persian + smaller for task titles
+    style = ParagraphStyle(
+        name="Persian",
+        fontName="PersianFont",
+        fontSize=12,
+        alignment=2  # right
+    )
+
+    task_style = ParagraphStyle(
+        name="TaskTitle",
+        fontName="PersianFont",
+        fontSize=10,   # smaller
+        alignment=2,   # right
+        leading=12     # line spacing
+    )
+
     for emp in employee_reports:
         # Header
         elements.append(Paragraph(rtl(f"گزارش ماهانه {emp['name']} (ID: {emp['id']}) — ماه {month}"), style))
@@ -35,23 +51,24 @@ def generate_pdf(employee_reports, month, output_path):
                 [rtl("ID"), rtl("عنوان"), rtl("تاریخ انجام")]
             ]
             for i, t in enumerate(done_tasks):
-                # reshape & bidi **each cell** individually
                 row = [
                     str(t.get("id", i+1)),
-                    rtl(t.get("tasktitle", "")),
-                    rtl(t.get("donetime", t.get("createtime", "-")))
+                    # use Paragraph for task title (so long text wraps)
+                    Paragraph(rtl(t.get("tasktitle", "")), task_style),
+                    Paragraph(rtl(t.get("donetime", t.get("createtime", "-"))), style)
                 ]
                 data.append(row)
 
-            # Table with proportional column widths
-            table = Table(data, colWidths=[50, 350, 100], hAlign='RIGHT')  # adjust widths
+            # Table with column widths
+            table = Table(data, colWidths=[50, 250, 150], hAlign='RIGHT')
             table.setStyle(TableStyle([
                 ('FONTNAME', (0,0), (-1,-1), 'PersianFont'),
-                ('FONTSIZE', (0,0), (-1,-1), 12),
+                ('FONTSIZE', (0,0), (-1,0), 12),  # header stays bigger
                 ('ALIGN', (0,0), (-1,-1), 'RIGHT'),
+                ('VALIGN', (0,0), (-1,-1), 'TOP'),  # important: align top so wrapped text expands downward
                 ('GRID', (0,0), (-1,-1), 0.5, colors.black),
                 ('BACKGROUND', (0,0), (-1,0), colors.grey),
-                ('TEXTCOLOR', (0,0), (-1,0), colors.whitesmoke)
+                ('TEXTCOLOR', (0,0), (-1,0), colors.whitesmoke),
             ]))
             elements.append(table)
         else:
