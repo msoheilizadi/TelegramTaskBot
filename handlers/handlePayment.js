@@ -5,6 +5,10 @@ const { sendLoggedMessage } = require("../utils/logger");
 const showEmployeeMenu = require("./menus/showEmployeeMenu");
 const { getAedRate } = require("../Api/getAedRate");
 
+function formatNumber(x) {
+  return x.toLocaleString("fa-IR"); // Persian-style commas
+}
+
 function handlePaymentMessages(bot, msg, sessions, saveSessions) {
   const chatId = msg.chat.id;
   const text = msg.text?.trim();
@@ -109,7 +113,7 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
       const totalPriceBeforeDiscount = Math.round(
         aedPrice / (1 - discountPct / 100)
       );
-      const discountAmount = totalPriceBeforeDiscount - aedPrice;
+      const discountAmount = Math.ceil(totalPriceBeforeDiscount - aedPrice);
       const downPaymentPercent = methodPct === 0.5 ? 0.3 : 0.2;
       const downPayment = Math.round(aedPrice * downPaymentPercent);
 
@@ -128,15 +132,28 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
       const summaryText = `
 🏢 واحد: ${session.unit}
 💸 تخفیف: ${discountPct}%
-💳 روش پرداخت: ${methodPct * 100}%
+💳 روش پرداخت: ${methodPct}%
+💱 نرخ فعلی AED: ${formatNumber(rate)}
 
-💰 مبلغ کل به درهم: ${totalPriceBeforeDiscount} AED (~${totalPriceBeforeDiscountToman} تومان)
-💵 مبلغ کل بعد از تخفیف: ${aedPrice} AED (~${aedPriceToman} تومان)
-🪙 پیش پرداخت اولیه (${
-        downPaymentPercent * 100
-      }%): ${downPayment} AED (~${downPaymentToman} تومان)
-📆 مبلغ پرداختی ماهانه: ${monthlyPayment} AED (~${monthlyPaymentToman} تومان)
-🎁 میزان تخفیف اعمال شده: ${discountAmount} AED (~${discountAmountToman} تومان)
+💰 مبلغ کل:
+  ${formatNumber(totalPriceBeforeDiscount)} AED
+  ${formatNumber(totalPriceBeforeDiscountToman)} تومان
+
+💵 مبلغ کل بعد از تخفیف:
+  ${formatNumber(aedPrice)} AED
+  ${formatNumber(aedPriceToman)} تومان
+
+🪙 پیش پرداخت اولیه (${downPaymentPercent * 100}%):
+  ${formatNumber(downPayment)} AED
+  ${formatNumber(downPaymentToman)} تومان
+
+📆 مبلغ پرداختی ماهانه:
+  ${formatNumber(monthlyPayment)} AED
+  ${formatNumber(monthlyPaymentToman)} تومان
+
+🎁 میزان تخفیف اعمال شده:
+  ${formatNumber(discountAmount)} AED
+  ${formatNumber(discountAmountToman)} تومان
 `.trim();
 
       // Send PDF and summary
