@@ -63,11 +63,6 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
     });
 
     pyProcess.on("close", (code) => {
-      // Always clear temporary payment fields
-      session.unit = null;
-      session.discount = null;
-      session.method = null;
-
       if (code !== 0) {
         console.error("Python script error:", stderr);
         sendLoggedMessage(
@@ -84,31 +79,71 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
       }
 
       const rawOutputLines = stdoutData.trim().split("\n");
-      const rawOutput = rawOutputLines[rawOutputLines.length - 1].trim();
-      const finalPdfPath = path.resolve(rawOutput);
+
+      // PDF path
+      const pdfLine = rawOutputLines.find((line) => line.endsWith(".pdf"));
+      const finalPdfPath = pdfLine ? path.resolve(pdfLine.trim()) : null;
+
+      // AED price
+      const priceLine = rawOutputLines.find((line) =>
+        line.startsWith("AED_PRICE=")
+      );
       const aedPrice = priceLine ? parseFloat(priceLine.split("=")[1]) : null;
-      console.log(aedPrice);
-      
+
+      console.log("Extracted AED Price:", aedPrice);
+      console.log("Final PDF Path:", finalPdfPath);
+
       if (!fs.existsSync(finalPdfPath)) {
         sendLoggedMessage(chatId, "❌ فایل ساخته شده پیدا نشد.");
-        // Set step to main to continue
         session.step = "main";
         saveSessions(sessions);
         if (session.username) showEmployeeMenu(chatId, session.username);
         return;
       }
 
+      // Ensure discount & method are numbers
+      const discountPct = parseFloat(session.discount);
+      const methodPct = parseFloat(session.method); // 1 or 0.5
+
+      // Calculations
+      const totalPriceBeforeDiscount = Math.round(
+        aedPrice / (1 - discountPct / 100)
+      );
+      const discountAmount = totalPriceBeforeDiscount - aedPrice;
+      const downPaymentPercent = methodPct === 0.5 ? 0.3 : 0.2;
+      const downPayment = +(aedPrice * downPaymentPercent).toFixed(2);
+
+      // Example monthly calculation
+      const remaining = aedPrice - downPayment;
+      const monthlyPayment = +(remaining * methodPct).toFixed(2); // adjust formula if needed
+
+      // Summary text
+      const summaryText = `
+واحد ${session.unit}
+تخفیف ${discountPct}
+پرداختی ${methodPct} درصد
+
+مبلغ کل به درهم: ${totalPriceBeforeDiscount}
+مبلغ کل به درهم بعد از تخفیف: ${aedPrice}
+پیش پرداخت اولیه ${downPaymentPercent * 100}%: ${downPayment}
+مبلغ پرداختی ماهانه: ${monthlyPayment}
+میزان تخفیف اعمال شده: ${discountAmount}
+`.trim();
+
+      // Send PDF and summary
       const fileStream = fs.createReadStream(finalPdfPath);
       bot
         .sendDocument(chatId, fileStream)
         .then(() => {
-          console.log("File sent successfully.");
           sendLoggedMessage(chatId, "✅ فایل پرداخت آماده شد و ارسال شد.");
+          sendLoggedMessage(chatId, summaryText);
 
-          // Set step to main after success
+          // Reset session AFTER sending
+          session.unit = null;
+          session.discount = null;
+          session.method = null;
           session.step = "main";
           saveSessions(sessions);
-
           if (session.username) showEmployeeMenu(chatId, session.username);
 
           try {
@@ -120,8 +155,6 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
         .catch((err) => {
           console.error("Error sending document:", err);
           sendLoggedMessage(chatId, "❌ خطا در ارسال فایل PDF.");
-
-          // Still set step to main
           session.step = "main";
           saveSessions(sessions);
           if (session.username) showEmployeeMenu(chatId, session.username);

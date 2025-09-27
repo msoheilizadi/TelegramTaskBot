@@ -18,7 +18,10 @@
     "phone": "989015745264",
     "username": "soheil",
     "role": "employee",
-    "step": "main"
+    "step": "main",
+    "unit": "210",
+    "discount": "15",
+    "method": "1"
   },
   "7228050327": {
     "step": "await_contact"
