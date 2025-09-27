@@ -2,6 +2,8 @@ const { sendLoggedMessage } = require("../utils/logger");
 const storage = require("../storage");
 
 module.exports = async function handleLoginSteps(
+  bot,
+  msg,
   chatId,
   text,
   session,
@@ -25,25 +27,24 @@ module.exports = async function handleLoginSteps(
     return;
   }
 
-  if (sessions[chatId]?.step === "awaiting_manager_broadcast") {
+  if (session.step === "awaiting_manager_broadcast") {
     const message = msg.text || (msg.document ? msg.document.file_id : null);
 
     if (!message) {
       return sendLoggedMessage(chatId, "⚠️ متن یا فایل نامعتبر است.");
     }
 
-    // Send only to managers
     for (const [name, u] of Object.entries(require("../data.json").users)) {
       if (u.role === "manager" && u.telegramId) {
         if (msg.document) {
-          bot.sendDocument(u.telegramId, msg.document.file_id);
+          await bot.sendDocument(u.telegramId, msg.document.file_id);
         } else {
-          bot.sendMessage(u.telegramId, message);
+          await bot.sendMessage(u.telegramId, message);
         }
       }
     }
 
-    delete sessions[chatId].step;
+    session.step = "main";
     saveSessions(sessions);
 
     return sendLoggedMessage(chatId, "✅ پیام فقط برای مدیران ارسال شد.");

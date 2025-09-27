@@ -44,7 +44,7 @@ module.exports = async function handleMessage(bot, msg, sessions, saveSessions) 
 
   // Handle Login Steps
   if (session.step) {
-    await handleLoginSteps(chatId, text, session, sessions, saveSessions);
+    await handleLoginSteps(bot, msg, chatId, text, session, sessions, saveSessions);
     return;
   }
 };
