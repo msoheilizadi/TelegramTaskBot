@@ -32,42 +32,12 @@
           "completed": false
         },
         {
-          "id": 56,
-          "title": "Write the code for the telegram bot that will notice users they don't finish their day",
-          "completed": false
-        },
-        {
           "id": 61,
           "title": "عوض کردم رنگ خانم نگار توی اکسل سی ار ام",
           "completed": false
-        },
-        {
-          "id": 62,
-          "title": "Cleared duplicated data from Niaiesh Mall database table",
-          "completed": true
-        },
-        {
-          "id": 63,
-          "title": "Fixed bugs related to message delivery issues in the whatsapp bot",
-          "completed": true
-        },
-        {
-          "id": 64,
-          "title": "Reconnected the bot with Green API and configured API bot webhooks via ngrok and..",
-          "completed": true
-        },
-        {
-          "id": 65,
-          "title": "Updated plugins on a-land.ir website",
-          "completed": true
-        },
-        {
-          "id": 66,
-          "title": "Start and finished the Niaiesh Mall messaging campaign",
-          "completed": true
         }
       ],
-      "dayStart": "2025-09-22T09:03:43.170Z",
+      "dayStart": "2025-09-27T07:04:00.115Z",
       "dayEnd": null
     },
     "negar": {
@@ -113,7 +83,7 @@
           "completed": false
         }
       ],
-      "dayStart": "2025-09-22T09:46:49.795Z",
+      "dayStart": null,
       "dayEnd": null
     },
     "mohammadi": {

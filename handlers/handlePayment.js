@@ -86,7 +86,9 @@ function handlePaymentMessages(bot, msg, sessions, saveSessions) {
       const rawOutputLines = stdoutData.trim().split("\n");
       const rawOutput = rawOutputLines[rawOutputLines.length - 1].trim();
       const finalPdfPath = path.resolve(rawOutput);
-
+      const aedPrice = priceLine ? parseFloat(priceLine.split("=")[1]) : null;
+      console.log(aedPrice);
+      
       if (!fs.existsSync(finalPdfPath)) {
         sendLoggedMessage(chatId, "❌ فایل ساخته شده پیدا نشد.");
         // Set step to main to continue

@@ -18,7 +18,7 @@
     "phone": "989015745264",
     "username": "soheil",
     "role": "employee",
-    "addingTask": false
+    "step": "main"
   },
   "7228050327": {
     "step": "await_contact"

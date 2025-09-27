@@ -86,7 +86,8 @@ def create_payment_plan_excel(unit_number, discount, payment_method):
 
     output_excel = os.path.join(BASE_DIR, f'temp_payment_plan_{unit_number}.xlsx')
     payment_wb.save(output_excel)
-    return output_excel, discount_pct, payment_method
+    final_aed_price = unit_data["I"] * (1 - discount_frac)
+    return output_excel, discount_pct, payment_method, final_aed_price
 
 def excel_to_pdf(excel_path, pdf_path):
     output_dir = os.path.dirname(pdf_path)
@@ -158,7 +159,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        excel_file, discount_pct, payment_method_val = create_payment_plan_excel(
+        excel_file, discount_pct, payment_method_val, final_aed_price = create_payment_plan_excel(
             args.unit, args.discount, args.payment
         )
 
@@ -180,7 +181,8 @@ def main():
             os.remove(temp_pdf)
 
         if os.path.exists(final_pdf_path):
-            print(final_pdf_path)  # فقط مسیر فایل رو چاپ کن
+            print(final_pdf_path) 
+            print(f"AED_PRICE={final_aed_price}")
             sys.exit(0)
         else:
             print(f"Error: PDF file not found at expected path: {final_pdf_path}", file=sys.stderr)
