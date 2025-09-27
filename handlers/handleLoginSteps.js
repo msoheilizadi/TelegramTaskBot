@@ -1,8 +1,14 @@
-const { sendLoggedMessage } = require('../utils/logger');
-const storage = require('../storage');
+const { sendLoggedMessage } = require("../utils/logger");
+const storage = require("../storage");
 
-module.exports = async function handleLoginSteps(chatId, text, session, sessions, saveSessions) {
-  if (session.step === 'awaiting_broadcast_message') {
+module.exports = async function handleLoginSteps(
+  chatId,
+  text,
+  session,
+  sessions,
+  saveSessions
+) {
+  if (session.step === "awaiting_broadcast_message") {
     const data = storage.getAllUsers();
     let count = 0;
     for (const uname in data) {
@@ -14,49 +20,96 @@ module.exports = async function handleLoginSteps(chatId, text, session, sessions
     }
 
     sendLoggedMessage(chatId, `📢 پیام برای ${count} کاربر ارسال شد.`);
-    session.step = 'main';
+    session.step = "main";
     saveSessions(sessions);
     return;
   }
 
-  if (session.step === 'username') {
+  if (sessions[chatId]?.step === "awaiting_manager_broadcast") {
+    const message = msg.text || (msg.document ? msg.document.file_id : null);
+
+    if (!message) {
+      return sendLoggedMessage(chatId, "⚠️ متن یا فایل نامعتبر است.");
+    }
+
+    // Send only to managers
+    for (const [name, u] of Object.entries(require("../data.json").users)) {
+      if (u.role === "manager" && u.telegramId) {
+        if (msg.document) {
+          bot.sendDocument(u.telegramId, msg.document.file_id);
+        } else {
+          bot.sendMessage(u.telegramId, message);
+        }
+      }
+    }
+
+    delete sessions[chatId].step;
+    saveSessions(sessions);
+
+    return sendLoggedMessage(chatId, "✅ پیام فقط برای مدیران ارسال شد.");
+  }
+
+  if (session.step === "username") {
     const user = storage.getUser(text);
-    if (!user) return sendLoggedMessage(chatId, "Username not found. Try again:");
+    if (!user)
+      return sendLoggedMessage(chatId, "Username not found. Try again:");
     session.username = text;
-    session.step = 'password';
+    session.step = "password";
     saveSessions(sessions);
     return sendLoggedMessage(chatId, "Enter your password:");
   }
 
-  if (session.step === 'password') {
+  if (session.step === "password") {
     const user = storage.getUser(session.username);
     if (!user) return sendLoggedMessage(chatId, "❌ User not found.");
-    if (user.password !== text) return sendLoggedMessage(chatId, "❌ Wrong password. Try again:");
+    if (user.password !== text)
+      return sendLoggedMessage(chatId, "❌ Wrong password. Try again:");
 
     user.telegramId = chatId;
     storage.updateUser(session.username, user);
     session.role = user.role;
-    session.step = 'main';
+    session.step = "main";
     saveSessions(sessions);
 
-    if (user.role === 'employee') {
-      return sendLoggedMessage(chatId, "✅ سلام و وقت بخیر! برای شروع روز کاری‌تون، لطفاً دکمه زیر رو بزنید.", {
-        reply_markup: {
-          inline_keyboard: [[{ text: "🟢 شروع روز", callback_data: "start_day" },{ text: "💻 شروع روز دورکاری", callback_data: "start_remote_day" }]]
+    if (user.role === "employee") {
+      return sendLoggedMessage(
+        chatId,
+        "✅ سلام و وقت بخیر! برای شروع روز کاری‌تون، لطفاً دکمه زیر رو بزنید.",
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                { text: "🟢 شروع روز", callback_data: "start_day" },
+                {
+                  text: "💻 شروع روز دورکاری",
+                  callback_data: "start_remote_day",
+                },
+              ],
+            ],
+          },
         }
-      });
+      );
     }
 
-    return sendLoggedMessage(chatId, "👋 سلام مدیر عزیز! دوست داری چه کاری انجام بدی؟", {
-      reply_markup: {
-        inline_keyboard: [
-          [{ text: "📤 اختصاص تسک به کارمند", callback_data: "assign_task" }],
-          [{ text: "📋 وضعیت حضور", callback_data: "view_attendance" }],
-          [{ text: "🗂 دیدن تسک‌های کارمندان", callback_data: "view_tasks" }],
-          [{ text: "📄 ایجاد پلن پرداخت", callback_data: "create_payment" }],
-          [{ text: "مشاهده گزارش کارمندان", callback_data: "view_employees" }]
-        ]
+    return sendLoggedMessage(
+      chatId,
+      "👋 سلام مدیر عزیز! دوست داری چه کاری انجام بدی؟",
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: "📤 اختصاص تسک به کارمند", callback_data: "assign_task" }],
+            [{ text: "📋 وضعیت حضور", callback_data: "view_attendance" }],
+            [{ text: "🗂 دیدن تسک‌های کارمندان", callback_data: "view_tasks" }],
+            [{ text: "📄 ایجاد پلن پرداخت", callback_data: "create_payment" }],
+            [
+              {
+                text: "مشاهده گزارش کارمندان",
+                callback_data: "view_employees",
+              },
+            ],
+          ],
+        },
       }
-    });
+    );
   }
 };

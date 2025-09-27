@@ -19,9 +19,9 @@
     "username": "soheil",
     "role": "employee",
     "step": "main",
-    "unit": "210",
-    "discount": "15",
-    "method": "1"
+    "unit": null,
+    "discount": null,
+    "method": null
   },
   "7228050327": {
     "step": "await_contact"
